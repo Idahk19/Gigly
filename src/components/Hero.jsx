@@ -25,7 +25,7 @@ function Hero() {
   <div className="absolute inset-0 bg-white/40 backdrop-blur-sm"></div>
 
   {/* Hero Content */}
-  <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 lg:py-28">
+  <div className="relative z-10 max-w-7xl px-6 py-20 lg:py-28">
     <div className="grid lg:grid-cols-2 gap-16 items-center">
 
       {/* Left Side */}
@@ -46,7 +46,7 @@ function Hero() {
             to="/signup"
             className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-xl font-semibold transition duration-300"
           >
-            See Features 
+            See Features
           </Link>
 
           <Link
