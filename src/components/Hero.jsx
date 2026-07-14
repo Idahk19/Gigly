@@ -46,7 +46,7 @@ function Hero() {
             to="/signup"
             className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-xl font-semibold transition duration-300"
           >
-            Get Started
+            See Features 
           </Link>
 
           <Link
