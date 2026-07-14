@@ -61,7 +61,44 @@ Gigly addresses this problem by providing a single platform where freelancers ca
 - Firebase
 
 ## Project Structure
-
+```
+src/
+│
+├── assets/
+│
+├── components/
+│   ├── layout/
+│   │   ├── Navbar.jsx
+│   │   ├── Sidebar.jsx
+│   │   └── Footer.jsx
+│   │
+│   ├── ui/
+│   ├── dashboard/
+│   ├── projects/
+│   ├── tasks/
+│   ├── clients/
+│   └── payments/
+│
+├── context/
+│
+├── pages/
+│   ├── Home.jsx
+│   ├── Dashboard.jsx
+│   ├── Projects.jsx
+│   ├── Tasks.jsx
+│   ├── Clients.jsx
+│   ├── Payments.jsx
+│   ├── About.jsx
+│   ├── Login.jsx
+│   └── NotFound.jsx
+│
+├── hooks/
+├── services/
+├── utils/
+├── data/
+├── App.jsx
+└── main.jsx
+```
 ## Installation
 
 Clone the repository
