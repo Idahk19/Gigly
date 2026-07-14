@@ -55,6 +55,38 @@ import { Link } from 'react-router-dom';
               </li>
             </ul>
           </div>
+           <div>
+            <h3 className="text-white font-semibold text-lg mb-5">
+              Resources
+            </h3>
+
+            <ul className="space-y-3">
+              <li>
+                <Link to="/faq" className="hover:text-indigo-400 transition">
+                  FAQs
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/privacy" className="hover:text-indigo-400 transition">
+                  Privacy Policy
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/terms" className="hover:text-indigo-400 transition">
+                  Terms of Service
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/support" className="hover:text-indigo-400 transition">
+                  Support
+                </Link>
+              </li>
+            </ul>
+          </div>
+
 
         </div>
       </div>
