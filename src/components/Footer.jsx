@@ -1,10 +1,6 @@
  import React from 'react'
  import {
   FolderKanban,
-  Facebook,
-  Instagram,
-  Linkedin,
-  Twitter,
   Mail,
 } from "lucide-react";
  
