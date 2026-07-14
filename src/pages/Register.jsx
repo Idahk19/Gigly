@@ -1,15 +1,24 @@
 import React from 'react'
+import RegisterImage from "../assets/images/RegisterImage.avif"
 
 function Register() {
   return (
-    <div className="max-w-5xl mx-auto rounded-3xl overflow-hidden bg-white/20 backdrop-blur-xl border border-white/30 shadow-2xl">
+    <section>
+    <div className="absolute inset-0">
+            <img
+              src={RegisterImage}
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+    <div className="max-w-5xl mx-auto mt-5 rounded-3xl overflow-hidden bg-white/20 backdrop-blur-xl border border-white/30 shadow-2xl">
  <div className="grid lg:grid-cols-2 gap-8 items-center">
-    <div className="bg-gradient-to-br from-indigo-600 to-indigo-700 text-white p-10">
-      <h1 className="text-4xl font-bold">
-  Welcome to Gigly
+    <div className="  p-10">
+    <h1 className="text-6xl font-bold leading-tight bg-gradient-to-r from-indigo-600 via-violet-600 to-emerald-500 bg-clip-text text-transparent">
+  Welcome to Gigly!
 </h1>
 
-<p className="mt-6 leading-8 text-indigo-100">
+<p className="mt-6 max-w-md text-lg leading-8 text-slate-600">
   Simplify your freelance workflow by managing projects, clients,
   tasks, and payments from one beautiful workspace.
 </p>  
@@ -90,6 +99,7 @@ function Register() {
     </div>
     </div>
      </div>
+     </section>
   )
 }
 
