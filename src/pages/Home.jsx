@@ -8,6 +8,12 @@ function Home() {
     <div>
       <Navbar />
       <Hero />
+      <section className="relative py-28 bg-gradient-to-br from-slate-50 via-indigo-50 to-white">
+        <div>
+          <p>Why choose Gigly</p>
+        </div>
+      </section>
+       
       <Footer />
     </div>
   )
