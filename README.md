@@ -1,16 +1,97 @@
-# React + Vite
+## Gigly
+### Overview
+Gigly is a freelancer productivity and project management website designed to help independent professionals stay organized. Instead of juggling multiple tools for managing projects, tasks, clients, deadlines, and payments, Gigly provides a centralized workspace where freelancers can keep everything in one place.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Problem Statement
 
-Currently, two official plugins are available:
+Freelancers often use several different applications to manage their work, such as task managers, spreadsheets, calendars, note-taking apps, and invoicing tools. Switching between these platforms can be time-consuming and lead to missed deadlines, forgotten tasks, and unpaid invoices.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Gigly addresses this problem by providing a single platform where freelancers can manage their workflow efficiently.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Dashboard
 
-## Expanding the ESLint configuration
+- Overview of active projects
+- Upcoming deadlines
+- Pending invoices
+- Recent activities
+- Task completion statistics
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Project Management
+- Create new projects
+- Edit project information
+- Archive completed projects
+- Track project status
+ 
+### Task Management
+- Create tasks within projects
+- Assign priorities
+- Mark tasks as:
+    - To Do
+    - In Progress
+    - Completed
+
+### Client Management
+- Store client details
+- View all projects belonging to a client
+
+### Invoice & Payment Tracking
+- Create invoice records
+- Mark invoices as Paid or Unpaid
+- Track outstanding payments
+- Monitor monthly earnings
+
+### Deadline Management
+- Set project deadlines
+- Receive reminders for upcoming due dates
+- Highlight overdue projects
+
+### Search & Filtering
+- Search projects
+- Filter by status
+- Filter by client
+- Filter by deadline
+
+## Tech Stack
+- React
+- Vite
+- Tailwind CSS
+- JavaScript (ES6+)
+- Firebase
+
+## Project Structure
+
+## Installation
+
+Clone the repository
+```
+git clone https://github.com/your-username/gigly.git
+```
+Navigate to the project folder
+```
+cd gigly
+```
+Install dependencies
+```
+npm install
+```
+Run the development server
+```
+npm run dev
+```
+
+## Future Enhancements
+
+- Mobile application
+
+### license
+
+MIT license
+
+### Live URL
+
+### Author
+
+Idah Karwitha - frontend developer
+
