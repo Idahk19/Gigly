@@ -3,6 +3,7 @@
   FolderKanban,
   Mail,
 } from "lucide-react";
+import { Link } from 'react-router-dom';
  
  function Footer() {
    return (
@@ -23,6 +24,38 @@
                  Less juggling between apps, more time doing what you love.
               </p>
             </div>
+             <div>
+            <h3 className="text-white font-semibold text-lg mb-5">
+              Quick Links
+            </h3>
+
+            <ul className="space-y-3">
+              <li>
+                <Link to="/" className="hover:text-indigo-400 transition">
+                  Home
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/features" className="hover:text-indigo-400 transition">
+                  Features
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/pricing" className="hover:text-indigo-400 transition">
+                  Pricing
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/about" className="hover:text-indigo-400 transition">
+                  About
+                </Link>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </div>
