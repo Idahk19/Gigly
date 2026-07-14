@@ -17,11 +17,14 @@ function Home() {
       <Navbar />
       <Hero />
       <section className="relative py-28 bg-gradient-to-br from-slate-200 via-indigo-100">
-        <div>
-          <p>Why choose Gigly</p>
-        </div>
+        <div className="text-center mb-6">
+  <h2 className="inline-block text-2xl md:text-3xl font-bold text-indigo-600 relative">
+    Why Choose Gigly
+    <span className="absolute left-1/2 -bottom-5 h-1 w-30 -translate-x-1/2 rounded-full bg-indigo-600"></span>
+  </h2>
+</div>
         <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-  <div className="rounded-3xl bg-white/5 backdrop-blur-2xlg border border-white/30 p-8 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition duration-300">
+  <div className="rounded-3xl bg-white/20 backdrop-blur-xlg border border-white/30 p-8 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition duration-300">
     <div className="w-14 h-14 rounded-2xl bg-indigo-100 flex items-center justify-center mb-6">
       <FolderKanban className="w-7 h-7 text-indigo-600" />
     </div>
