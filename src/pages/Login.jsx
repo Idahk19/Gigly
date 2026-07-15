@@ -4,8 +4,7 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
-
-
+import { toast } from "sonner";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -24,10 +23,10 @@ function Login() {
     setEmail("")
     setPassword("")
 
-      alert("Login successful!");
+      toast.success("Login successful!");
       navigate("/")
   } catch (error) {
-    alert(error.message);
+    toast.error(error.message);
   }
   
       }
@@ -35,14 +34,12 @@ function Login() {
     try {
       const result = await googleSignIn();
 
-      console.log("Google User:", result.user);
-
-      alert("Google Sign-In successful!");
+      toast.success("Google Sign-In successful!");
 
       navigate("/dashboard");
     } catch (error) {
       console.log(error);
-      alert(error.message);
+      toast.error(error.message);
     }
     }
   return (
