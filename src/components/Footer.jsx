@@ -75,13 +75,13 @@ import { Link } from 'react-router-dom';
           </li>
 
           <li>
-            <Link to="/privacy" className="hover:text-indigo-400 transition">
+            <Link to="/privacypolicy" className="hover:text-indigo-400 transition">
               Privacy Policy
             </Link>
           </li>
 
           <li>
-            <Link to="/terms" className="hover:text-indigo-400 transition">
+            <Link to="/termsconditions" className="hover:text-indigo-400 transition">
               Terms of Service
             </Link>
           </li>
