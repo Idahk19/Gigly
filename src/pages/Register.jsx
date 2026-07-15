@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import RegisterImage from "../assets/images/RegisterImage.avif"
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth"
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
 
@@ -9,6 +10,7 @@ function Register() {
   const [ email, setEmail ] = useState("");
   const [ password, setPassword] = useState("");
   const [ confirmPassword, setConfirmPassword ] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -25,6 +27,8 @@ function Register() {
     );
 
     alert("Account created successfully!");
+    navigate("/login")
+    
   } catch (error) {
     console.log(error);
     alert(error.message);
