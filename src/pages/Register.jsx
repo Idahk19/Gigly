@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import RegisterImage from "../assets/images/RegisterImage.avif"
 import { auth } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth"
-import { useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword, GoogleAuthProvider,
+  signInWithPopup, } from "firebase/auth"
+import { Link, useNavigate } from 'react-router-dom';
 
 function Register() {
 
@@ -11,6 +12,7 @@ function Register() {
   const [ password, setPassword] = useState("");
   const [ confirmPassword, setConfirmPassword ] = useState("");
   const navigate = useNavigate();
+  const provider = new GoogleAuthProvider();
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -26,6 +28,11 @@ function Register() {
       password
     );
 
+    setFullName("");
+setEmail("");
+setPassword("");
+setConfirmPassword("");
+
     alert("Account created successfully!");
     navigate("/login")
     
@@ -35,6 +42,21 @@ function Register() {
   }
 
   }
+  const handleGoogleSignIn = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+
+    console.log("Google User:", result.user);
+
+    alert("Signed in with Google successfully!");
+
+    navigate("/login");
+  } catch (error) {
+  console.log("Code:", error.code);
+  console.log("Message:", error.message);
+  console.log(error);
+}
+};
 
   return (
     <section>
@@ -124,17 +146,43 @@ function Register() {
 />
   </div>
 
-  <button
-    type="submit"
-    className="w-full rounded-xl bg-indigo-600 py-3 font-semibold text-white transition hover:bg-indigo-700"
-  >
-    Create Account
-  </button>
+<button
+  type="submit"
+  className="w-full rounded-xl bg-indigo-600 py-3 font-semibold text-white transition hover:bg-indigo-700"
+>
+  Create Account
+</button>
+
+<div className="relative my-5">
+  <div className="absolute inset-0 flex items-center">
+    <div className="w-full border-t border-slate-300"></div>
+  </div>
+
+  <div className="relative flex justify-center text-sm">
+    <span className="bg-white px-3 text-slate-500">
+      OR
+    </span>
+  </div>
+</div>
+
+<button
+  type="button"
+  onClick={handleGoogleSignIn}
+  className="w-full flex items-center justify-center gap-3 rounded-xl border border-slate-300 bg-white py-3 font-semibold text-slate-700 hover:bg-slate-100 transition"
+>
+  <img
+    src="https://www.svgrepo.com/show/475656/google-color.svg"
+    alt="Google"
+    className="w-5 h-5"
+  />
+
+  Continue with Google
+</button>
 
   <p className="text-center text-slate-600">
     Already have an account?{" "}
     <a
-      href="/login"
+      href="/dashboard"
       className="font-semibold text-indigo-600 hover:text-indigo-700"
     >
       Sign In
