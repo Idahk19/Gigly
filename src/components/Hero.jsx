@@ -53,7 +53,7 @@ function Hero() {
             <img
               src={HeroImage2}
               alt="Gigly Dashboard"
-              className="w-full max-w-2xl"
+              className="w-full rounded-xl max-w-2xl"
             />
           </div>
         </div>
