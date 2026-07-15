@@ -8,13 +8,12 @@ import { getAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAIC0jJs5QxQ-3vWJwpElspj0ewNHA6Ab8",
-  authDomain: "gigly-b30ec.firebaseapp.com",
-  projectId: "gigly-b30ec",
-  storageBucket: "gigly-b30ec.firebasestorage.app",
-  messagingSenderId: "90060915149",
-  appId: "1:90060915149:web:e6edef16f2e285034dc484",
-  measurementId: "G-YTRCK1H47P"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
