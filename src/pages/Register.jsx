@@ -96,6 +96,7 @@ setConfirmPassword("");
   placeholder="Enter your full name"
   value={fullName}
   onChange={(e) => setFullName(e.target.value)}
+  required
   className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
 />
   </div>
@@ -109,6 +110,7 @@ setConfirmPassword("");
   placeholder="Enter your email"
   value={email}
   onChange={(e) => setEmail(e.target.value)}
+  required
   className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
 />
   </div>
@@ -122,6 +124,7 @@ setConfirmPassword("");
   placeholder="Create a password"
   value={password}
   onChange={(e) => setPassword(e.target.value)}
+  required
   className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
 />
   </div>
@@ -135,6 +138,7 @@ setConfirmPassword("");
   placeholder="Confirm your password"
   value={confirmPassword}
   onChange={(e) => setConfirmPassword(e.target.value)}
+  required
   className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
 />
   </div>
