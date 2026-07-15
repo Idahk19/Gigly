@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, FolderKanban } from "lucide-react";
+import { Menu, X, FolderKanban,  House,
+  CircleDollarSign,
+  Info,} from "lucide-react";
+
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,25 +32,18 @@ function Navbar() {
         {/* Desktop Navigation */}
         <ul className="hidden md:flex items-center gap-10 font-medium text-slate-600">
           <li>
-            <Link to="/" className="hover:text-indigo-600 transition">
+            <Link to="/" className="hover:text-indigo-600 transition flex items-center gap-2 ">
+             <House size={18} />
               Home
             </Link>
           </li>
 
           <li>
             <Link
-              to="/features"
-              className="hover:text-indigo-600 transition"
-            >
-              Features
-            </Link>
-          </li>
-
-          <li>
-            <Link
               to="/pricing"
-              className="hover:text-indigo-600 transition"
+              className="hover:text-indigo-600 transition flex items-center gap-2 "
             >
+              <CircleDollarSign size={18} />
               Pricing
             </Link>
           </li>
@@ -55,8 +51,9 @@ function Navbar() {
           <li>
             <Link
               to="/about"
-              className="hover:text-indigo-600 transition"
+              className="hover:text-indigo-600 transition flex items-center gap-2"
             >
+              <Info size={18} />
               About
             </Link>
           </li>
