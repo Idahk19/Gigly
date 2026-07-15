@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import RegisterImage from "../assets/images/RegisterImage.avif"
-import { auth } from "../firebase";
-import { createUserWithEmailAndPassword, GoogleAuthProvider,
-  signInWithPopup, } from "firebase/auth"
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from "../context/AuthContext";
 
 function Register() {
 
@@ -12,7 +10,8 @@ function Register() {
   const [ password, setPassword] = useState("");
   const [ confirmPassword, setConfirmPassword ] = useState("");
   const navigate = useNavigate();
-  const provider = new GoogleAuthProvider();
+  const { register, googleSignIn } = useContext(AuthContext);
+
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -22,11 +21,7 @@ function Register() {
     return;
   }
    try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+   const userCredential = await register(email, password);
 
     setFullName("");
 setEmail("");
@@ -44,10 +39,7 @@ setConfirmPassword("");
   }
   const handleGoogleSignIn = async () => {
   try {
-    const result = await signInWithPopup(auth, provider);
-
-    console.log("Google User:", result.user);
-
+    const result = await googleSignIn();
     alert("Signed in with Google successfully!");
 
     navigate("/login");
@@ -181,12 +173,12 @@ setConfirmPassword("");
 
   <p className="text-center text-slate-600">
     Already have an account?{" "}
-    <a
-      href="/dashboard"
-      className="font-semibold text-indigo-600 hover:text-indigo-700"
-    >
-      Sign In
-    </a>
+    <Link
+  to="/login"
+  className="font-semibold text-indigo-600 hover:text-indigo-700"
+>
+  Sign In
+</Link>
   </p>
 </form>
     </div>
