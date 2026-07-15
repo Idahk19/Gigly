@@ -33,8 +33,23 @@ setConfirmPassword("");
     navigate("/login")
     
   } catch (error) {
-    console.log(error);
-   toast.error(error.message);
+  switch (error.code) {
+    case "auth/email-already-in-use":
+      toast.error("This email is already registered.");
+      break;
+
+    case "auth/invalid-email":
+      toast.error("Please enter a valid email address.");
+      break;
+
+    case "auth/weak-password":
+      toast.error("Password should be at least 6 characters.");
+      break;
+
+    default:
+      toast.error("Something went wrong. Please try again.");
+  }
+
   }
 
   }
