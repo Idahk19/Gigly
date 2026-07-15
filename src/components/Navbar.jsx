@@ -13,7 +13,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-lg border-b border-slate-200">
+    <nav className="sticky top-0 z-50 w-full bg-indigo-200 backdrop-blur-lg border-b border-slate-200">
       <div className="max-w-7xl h-20 px-6 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
