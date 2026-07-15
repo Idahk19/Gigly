@@ -1,122 +1,166 @@
+
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import {
+  LifeBuoy,
+  CircleHelp,
+  Lock,
+  Clock3,
+  MessageSquare,
+  Mail,
+  Phone,
+} from "lucide-react";
 
 function Support() {
   return (
     <>
       <Navbar />
 
-      <section className="bg-slate-50 py-20">
-        <div className="max-w-4xl mx-auto px-6">
-          <h1 className="text-5xl font-bold text-slate-900">
+      <section className="bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-700 py-24">
+        <div className="max-w-5xl mx-auto px-6 text-center text-white">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/20 backdrop-blur-md mb-6">
+            <LifeBuoy size={42} />
+          </div>
+
+          <h1 className="text-5xl md:text-6xl font-bold">
             Support Center
           </h1>
 
-          <p className="mt-4 text-slate-600">
-            We're here to help. If you have any questions, encounter any issues,
-            or need assistance using Gigly, you can reach out to our support
-            team.
+          <p className="mt-6 max-w-3xl mx-auto text-lg leading-8 text-indigo-100">
+            Need help using Gigly? We're here to answer your questions,
+            troubleshoot issues, and help you get the most out of your
+            freelance workspace.
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-slate-50 py-20">
+        <div className="max-w-5xl mx-auto px-6">
+
+          <div className="flex items-center gap-4 mb-5">
+            <CircleHelp className="text-indigo-600" size={32} />
+            <h2 className="text-2xl font-bold text-slate-900">
+              Frequently Asked Questions
+            </h2>
+          </div>
+
+          <div className="space-y-10 mb-16">
+
+            <div>
+              <h3 className="text-lg font-semibold text-slate-900">
+                How do I create a new project?
+              </h3>
+
+              <p className="mt-3 text-slate-600 leading-8">
+                After signing in, open your dashboard and click
+                <strong> New Project</strong>. Fill in the required information
+                and save to start managing your work.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-slate-900">
+                Can I edit or delete a project?
+              </h3>
+
+              <p className="mt-3 text-slate-600 leading-8">
+                Yes. Open the project from your dashboard, then choose the Edit
+                or Delete option depending on the action you'd like to perform.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-slate-900">
+                I forgot my password. What should I do?
+              </h3>
+
+              <p className="mt-3 text-slate-600 leading-8">
+                Click the <strong>Forgot Password</strong> link on the login
+                page and follow the instructions sent to your email to reset
+                your password.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-slate-900">
+                Is my information secure?
+              </h3>
+
+              <p className="mt-3 text-slate-600 leading-8">
+                Yes. Gigly uses trusted cloud services and modern security
+                practices to help keep your account and information protected.
+              </p>
+            </div>
+
+          </div>
+
+          <div className="flex items-center gap-4 mb-5">
+            <Lock className="text-indigo-600" size={32} />
+            <h2 className="text-2xl font-bold text-slate-900">
+              Contact Support
+            </h2>
+          </div>
+
+          <p className="text-slate-600 leading-8 mb-8">
+            If you couldn't find the answer you're looking for, our support team
+            is happy to help. Reach out using any of the methods below.
           </p>
 
-          <div className="mt-10 space-y-10">
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">
-                Frequently Asked Questions
-              </h2>
-
-              <div className="mt-6 space-y-6">
-                <div>
-                  <h3 className="text-lg font-semibold text-slate-800">
-                    How do I create a new project?
-                  </h3>
-                  <p className="mt-2 text-slate-700 leading-7">
-                    After logging in, navigate to your dashboard and click
-                    <strong> New Project</strong>. Fill in the required details
-                    and save your project.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-semibold text-slate-800">
-                    Can I edit or delete a project?
-                  </h3>
-                  <p className="mt-2 text-slate-700 leading-7">
-                    Yes. Open the project from your dashboard and choose either
-                    the Edit or Delete option.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-semibold text-slate-800">
-                    I forgot my password. What should I do?
-                  </h3>
-                  <p className="mt-2 text-slate-700 leading-7">
-                    Click the <strong>Forgot Password</strong> link on the login
-                    page and follow the instructions to reset your password.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-semibold text-slate-800">
-                    Is my data secure?
-                  </h3>
-                  <p className="mt-2 text-slate-700 leading-7">
-                    Yes. We use industry-standard security measures to help
-                    protect your information and keep your data safe.
-                  </p>
-                </div>
-              </div>
+          <div className="space-y-5 text-slate-700 mb-16">
+            <div className="flex items-center gap-3">
+              <Mail className="text-indigo-600" size={22} />
+              <span>support@gigly.com</span>
             </div>
 
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">
-                Contact Support
-              </h2>
-
-              <p className="mt-3 text-slate-700 leading-7">
-                If you couldn't find the answer you're looking for, our support
-                team is ready to help.
-              </p>
-
-              <div className="mt-6 space-y-3 text-slate-700">
-                <p>
-                  <strong>Email:</strong> support@gigly.com
-                </p>
-
-                <p>
-                  <strong>Phone:</strong> +254 700 123 456
-                </p>
-
-                <p>
-                  <strong>Business Hours:</strong> Monday – Friday, 8:00 AM –
-                  5:00 PM (EAT)
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">
-                Response Time
-              </h2>
-
-              <p className="mt-3 text-slate-700 leading-7">
-                We aim to respond to all support requests within 24–48 business
-                hours. During peak periods, responses may take slightly longer.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">
-                Feedback
-              </h2>
-
-              <p className="mt-3 text-slate-700 leading-7">
-                We value your feedback. If you have suggestions for improving
-                Gigly or would like to report a bug, please send us an email.
-                Your input helps us build a better platform for everyone.
-              </p>
+            <div className="flex items-center gap-3">
+              <Phone className="text-indigo-600" size={22} />
+              <span>+254 700 123 456</span>
             </div>
           </div>
+
+          <div className="flex items-center gap-4 mb-5">
+            <Clock3 className="text-indigo-600" size={32} />
+            <h2 className="text-2xl font-bold text-slate-900">
+              Response Time
+            </h2>
+          </div>
+
+          <p className="text-slate-600 leading-8 mb-16">
+            We aim to respond to all enquiries within 24–48 business hours.
+            During busy periods, responses may take a little longer, but we'll
+            always do our best to assist you as quickly as possible.
+          </p>
+
+          <div className="flex items-center gap-4 mb-5">
+            <MessageSquare className="text-indigo-600" size={32} />
+            <h2 className="text-2xl font-bold text-slate-900">
+              Feedback
+            </h2>
+          </div>
+
+          <p className="text-slate-600 leading-8 mb-16">
+            Your feedback helps us improve Gigly. If you've found a bug, have a
+            feature request, or simply want to share your experience, we'd love
+            to hear from you.
+          </p>
+
+          <div className="border-t border-slate-200 pt-14 text-center">
+            <Mail className="mx-auto text-indigo-600 mb-5" size={42} />
+
+            <h2 className="text-3xl font-bold text-slate-900">
+              Still Need Help?
+            </h2>
+
+            <p className="mt-4 max-w-2xl mx-auto text-slate-600 leading-8">
+              Our support team is always ready to assist you with any questions
+              about your account, projects, or using Gigly.
+            </p>
+
+            <p className="mt-8 text-xl font-semibold text-indigo-600">
+              support@gigly.com
+            </p>
+          </div>
+
         </div>
       </section>
 

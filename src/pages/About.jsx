@@ -1,5 +1,8 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import HeroImage from "../assets/images/HeroImage.webp"; // replace with your image
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function About() {
   return (
@@ -7,100 +10,102 @@ function About() {
       <Navbar />
 
       <section className="bg-slate-50 py-20">
-        <div className="max-w-5xl mx-auto px-6">
-          <h1 className="text-5xl font-bold text-slate-900">
-            About Gigly
-          </h1>
+        <div className="max-w-6xl mx-auto px-6">
 
-          <p className="mt-4 text-lg text-slate-600 leading-8">
-            Gigly is a freelancer management platform built to help freelancers
-            stay organized, productive, and in control of their work. From
-            managing projects and clients to tracking payments, Gigly brings
-            everything you need into one simple and intuitive workspace.
-          </p>
+          <div className="text-center max-w-3xl mx-auto">
+            <h1 className="text-5xl font-bold text-slate-900">
+              About Gigly
+            </h1>
 
-          <div className="mt-12 space-y-10">
+            <p className="mt-6 text-lg text-slate-600 leading-8">
+              Gigly is a modern workspace built for freelancers to manage
+              projects, clients, tasks and payments in one beautiful and
+              organized place.
+            </p>
+          </div>
+
+          <div className="mt-16 rounded-3xl overflow-hidden shadow-xl">
+            <img
+              src={HeroImage}
+              alt="Gigly workspace"
+              className="w-full h-[500px] object-cover"
+            />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-14 mt-20">
+
             <div>
-              <h2 className="text-2xl font-bold text-slate-900">
+              <h2 className="text-3xl font-bold text-slate-900">
                 Our Mission
               </h2>
 
-              <p className="mt-3 text-slate-700 leading-7">
-                Our mission is to simplify freelance work by providing tools
-                that help professionals manage their business efficiently.
-                Whether you're just starting your freelance journey or managing
-                multiple clients, Gigly helps you stay focused on delivering
-                great work instead of worrying about organization.
+              <p className="mt-6 text-slate-600 leading-8">
+                Freelancers spend too much time switching between spreadsheets,
+                notes, chats and invoices. Gigly brings everything together into
+                one intuitive workspace so you can focus on doing your best
+                work.
               </p>
             </div>
 
             <div>
-              <h2 className="text-2xl font-bold text-slate-900">
-                What You Can Do with Gigly
+              <h2 className="text-3xl font-bold text-slate-900">
+                Why Gigly?
               </h2>
 
-              <ul className="mt-4 list-disc list-inside space-y-3 text-slate-700">
-                <li>Create and manage projects.</li>
-                <li>Keep client information organized.</li>
-                <li>Track project payments and earnings.</li>
-                <li>Monitor project progress.</li>
-                <li>Access your work from one centralized dashboard.</li>
-                <li>Stay organized with an easy-to-use interface.</li>
-              </ul>
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">
-                Why Choose Gigly?
-              </h2>
-
-              <p className="mt-3 text-slate-700 leading-7">
-                Freelancers often juggle multiple projects, deadlines, and
-                clients at the same time. Gigly is designed to reduce that
-                complexity by providing a clean, reliable platform where you can
-                organize your work and keep everything in one place.
+              <p className="mt-6 text-slate-600 leading-8">
+                Designed with simplicity in mind, Gigly helps you stay organized,
+                track your progress, manage clients professionally and keep your
+                freelance business running smoothly.
               </p>
             </div>
 
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">
-                Our Vision
-              </h2>
-
-              <p className="mt-3 text-slate-700 leading-7">
-                We envision a future where freelancers can manage their entire
-                business effortlessly, allowing them to spend more time doing
-                what they love and less time handling administrative tasks.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">
-                Our Values
-              </h2>
-
-              <ul className="mt-4 list-disc list-inside space-y-3 text-slate-700">
-                <li>Simplicity – Easy-to-use tools for every freelancer.</li>
-                <li>Productivity – Helping users work smarter.</li>
-                <li>Reliability – Keeping your projects and data organized.</li>
-                <li>Innovation – Continuously improving the platform.</li>
-                <li>Customer Focus – Building features that solve real problems.</li>
-              </ul>
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">
-                Get Started Today
-              </h2>
-
-              <p className="mt-3 text-slate-700 leading-7">
-                Join Gigly today and discover a smarter way to manage your
-                freelance business. Stay organized, keep track of your projects,
-                and focus on what matters most—delivering exceptional work to
-                your clients.
-              </p>
-            </div>
           </div>
+
+          <div className="grid grid-cols-3 gap-8 text-center mt-20 border-y border-slate-200 py-12">
+
+            <div>
+              <h3 className="text-4xl font-bold text-indigo-600">
+                All-in-One
+              </h3>
+              <p className="mt-2 text-slate-600">
+                Workspace
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-4xl font-bold text-indigo-600">
+                Simple
+              </h3>
+              <p className="mt-2 text-slate-600">
+                User Experience
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-4xl font-bold text-indigo-600">
+                Built For
+              </h3>
+              <p className="mt-2 text-slate-600">
+                Freelancers
+              </p>
+            </div>
+
+          </div>
+
+          <div className="text-center mt-20">
+            <h2 className="text-4xl font-bold text-slate-900">
+              Ready to organize your freelance business?
+            </h2>
+
+            <Link
+              to="/register"
+              className="inline-flex items-center gap-2 mt-8 rounded-xl bg-indigo-600 px-8 py-4 text-white font-semibold hover:bg-indigo-700 transition"
+            >
+              Get Started
+              <ArrowRight size={20} />
+            </Link>
+          </div>
+
         </div>
       </section>
 
