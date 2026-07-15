@@ -1,7 +1,7 @@
 import React from 'react'
 import RegisterImage from "../assets/images/RegisterImage.avif"
 import { useState, useContext } from "react";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 
@@ -137,4 +137,4 @@ function Login() {
   )
 }
 
-export default Register
+export default Login;
