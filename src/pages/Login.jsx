@@ -1,27 +1,25 @@
 import React from 'react'
 import RegisterImage from "../assets/images/RegisterImage.avif"
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from "lucide-react";
-import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { AuthContext } from "../context/AuthContext";
 
 
-function Register() {
+
+function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
-    
+
+     const { login, googleSignIn } = useContext(AuthContext);
+
     const handleSubmit = async (e) =>{
       e.preventDefault();
 
       try{
-        const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+        const userCredential = await login(email, password);
 
     setEmail("")
     setPassword("")
@@ -31,7 +29,22 @@ function Register() {
   } catch (error) {
     alert(error.message);
   }
+  
       }
+       const handleGoogleLogin = async () => {
+    try {
+      const result = await googleSignIn();
+
+      console.log("Google User:", result.user);
+
+      alert("Google Sign-In successful!");
+
+      navigate("/dashboard");
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
+    }
   return (
     <section>
     <div className="absolute inset-0">
@@ -109,12 +122,12 @@ function Register() {
 
   <p className="text-center text-slate-600">
     Don't have an account ?{" "}
-    <a
-      href="/signup"
-      className="font-semibold text-indigo-600 hover:text-indigo-700"
-    >
-      Sign Up
-    </a>
+     <Link
+                  to="/register"
+                  className="font-semibold text-indigo-600 hover:text-indigo-700"
+                >
+                  Create Account
+                </Link>
   </p>
 </form>
     </div>
