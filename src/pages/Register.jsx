@@ -75,10 +75,10 @@ setConfirmPassword("");
             <img
               src={RegisterImage}
               alt=""
-              className="w-full h-full object-cover"
+              className="w-full object-cover min-h-screen"
             />
           </div>
-    <div className="max-w-5xl mx-auto mt-5 rounded-3xl overflow-hidden bg-white/20 backdrop-blur-xl border border-white/30 shadow-2xl">
+    <div className="max-w-5xl mx-auto mt-6 rounded-3xl overflow-hidden bg-white/20 backdrop-blur-xl border border-white/30 shadow-2xl">
  <div className="grid lg:grid-cols-2 gap-8 items-center">
     <div className="  p-10">
     <h1 className="text-6xl font-bold leading-tight bg-gradient-to-r from-indigo-600 via-violet-600 to-emerald-500 bg-clip-text text-transparent">
