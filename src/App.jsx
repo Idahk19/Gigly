@@ -4,7 +4,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Privacy from "./pages/PrivacyPolicy";
-import TermsConditions from "./pages/TermsConditions"
+import Terms from "./pages/TermsConditions"
 import Support from "./pages/Support"
 import FAQ from "./pages/FAQ"
 import About from "./pages/About" 
@@ -18,7 +18,7 @@ function App() {
        <Route path='/signup' element={<Register/>} />
        <Route path='/login' element={<Login/>} />
        <Route path='/privacypolicy' element={<Privacy/>} />
-       <Route path='/termsconditions' element={<TermsConditions />} />
+       <Route path='/termsconditions' element={<Terms />} />
        <Route path='/support' element={<Support/>} />
        <Route path='/faq' element={<FAQ/>} />
        <Route path='/about' element={<About/>} />
