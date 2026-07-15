@@ -38,9 +38,25 @@ function Login() {
 
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
-      toast.error(error.message);
-    }
+  console.log(error);
+
+  switch (error.code) {
+    case "auth/invalid-credential":
+      toast.error("Invalid email or password.");
+      break;
+
+    case "auth/invalid-email":
+      toast.error("Please enter a valid email address.");
+      break;
+
+    case "auth/too-many-requests":
+      toast.error("Too many failed attempts. Please try again later.");
+      break;
+
+    default:
+      toast.error("Failed to sign in. Please try again.");
+  }
+}
     }
   return (
     <section>
