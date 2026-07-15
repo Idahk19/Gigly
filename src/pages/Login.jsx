@@ -1,11 +1,37 @@
 import React from 'react'
 import RegisterImage from "../assets/images/RegisterImage.avif"
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from "lucide-react";
+import { auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 
 function Register() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
+    
+    const handleSubmit = async (e) =>{
+      e.preventDefault();
+
+      try{
+        const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    setEmail("")
+    setPassword("")
+
+      alert("Login successful!");
+      navigate("/")
+  } catch (error) {
+    alert(error.message);
+  }
+      }
   return (
     <section>
     <div className="absolute inset-0">
@@ -37,7 +63,7 @@ function Register() {
   Lets get productive!
 </p>
 
-<form className="mt-8 space-y-5">
+<form className="mt-8 space-y-5" onSubmit={handleSubmit}>
   <div>
     <label className="block mb-2 text-sm font-medium text-slate-700">
       Email Address
@@ -45,6 +71,8 @@ function Register() {
     <input
       type="email"
       placeholder="Enter your email"
+       value={email}
+  onChange={(e) => setEmail(e.target.value)}
       className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
     />
   </div>
@@ -56,6 +84,8 @@ function Register() {
     <input
       type={showPassword ? "text" : "password"}
       placeholder="Enter your password"
+       value={password}
+       onChange={(e) => setPassword(e.target.value)}
       className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 pr-10 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
     />
 
