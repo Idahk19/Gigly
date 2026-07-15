@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import RegisterImage from "../assets/images/RegisterImage.avif"
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from "../context/AuthContext";
+import { toast } from "sonner";
 
 function Register() {
 
@@ -17,7 +18,7 @@ function Register() {
     e.preventDefault();
 
      if (password !== confirmPassword) {
-    alert("Passwords do not match.");
+    toast.error("Passwords do not match.");
     return;
   }
    try {
@@ -28,19 +29,19 @@ setEmail("");
 setPassword("");
 setConfirmPassword("");
 
-    alert("Account created successfully!");
+    toast.success("Account created successfully!");
     navigate("/login")
     
   } catch (error) {
     console.log(error);
-    alert(error.message);
+   toast.error(error.message);
   }
 
   }
   const handleGoogleSignIn = async () => {
   try {
     const result = await googleSignIn();
-    alert("Signed in with Google successfully!");
+    toast.success("Signed in with Google successfully!");
 
     navigate("/login");
   } catch (error) {
