@@ -3,6 +3,7 @@ import RegisterImage from "../assets/images/RegisterImage.avif"
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "sonner";
+import { Eye, EyeOff } from "lucide-react";
 
 function Register() {
 
@@ -12,6 +13,8 @@ function Register() {
   const [ confirmPassword, setConfirmPassword ] = useState("");
   const navigate = useNavigate();
   const { register, googleSignIn } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
 
   const handleSubmit = async(e) => {
@@ -129,34 +132,61 @@ setConfirmPassword("");
   className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
 />
   </div>
+<div>
+  <label className="block mb-2 text-sm font-medium text-slate-700">
+    Password
+  </label>
 
-  <div>
-    <label className="block mb-2 text-sm font-medium text-slate-700">
-      Password
-    </label>
+  <div className="relative">
     <input
-  type="password"
-  placeholder="Create a password"
-  value={password}
-  onChange={(e) => setPassword(e.target.value)}
-  required
-  className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
-/>
-  </div>
+      type={showPassword ? "text" : "password"}
+      placeholder="Create a password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      required
+      className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 pr-12 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
+    />
 
-  <div>
-    <label className="block mb-2 text-sm font-medium text-slate-700">
-      Confirm Password
-    </label>
-    <input
-  type="password"
-  placeholder="Confirm your password"
-  value={confirmPassword}
-  onChange={(e) => setConfirmPassword(e.target.value)}
-  required
-  className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
-/>
+    <button
+      type="button"
+      onClick={() => setShowPassword(!showPassword)}
+      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-indigo-600"
+    >
+      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+    </button>
   </div>
+</div>
+
+<div>
+  <label className="block mb-2 text-sm font-medium text-slate-700">
+    Confirm Password
+  </label>
+
+  <div className="relative">
+    <input
+      type={showConfirmPassword ? "text" : "password"}
+      placeholder="Confirm your password"
+      value={confirmPassword}
+      onChange={(e) => setConfirmPassword(e.target.value)}
+      required
+      className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 pr-12 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
+    />
+
+    <button
+      type="button"
+      onClick={() =>
+        setShowConfirmPassword(!showConfirmPassword)
+      }
+      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-indigo-600"
+    >
+      {showConfirmPassword ? (
+        <EyeOff size={20} />
+      ) : (
+        <Eye size={20} />
+      )}
+    </button>
+  </div>
+</div>
 
 <button
   type="submit"
