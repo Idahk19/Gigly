@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Privacy from "./pages/PrivacyPolicy";
 import Terms from "./pages/TermsConditions"
 import Support from "./pages/Support"
-import FAQ from "./pages/FAQ"
+import FAQ from "./pages/Faq"
 import About from "./pages/About" 
 
 function App() {

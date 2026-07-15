@@ -1,4 +1,11 @@
-<div>
+import React from 'react'
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
+
+function Faq() {
+  return (
+   <div>
+    <Navbar />
   <h2 className="text-2xl font-bold text-slate-900">
     Frequently Asked Questions
   </h2>
@@ -87,4 +94,11 @@
       </p>
     </div>
   </div>
+  <Footer />
 </div>
+
+
+  )
+}
+
+export default Faq
