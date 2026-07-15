@@ -25,7 +25,7 @@ function Register() {
     return;
   }
    try {
-   const userCredential = await register(email, password);
+   const userCredential = await register(fullName, email, password);
 
     setFullName("");
 setEmail("");

@@ -138,7 +138,7 @@ function Login() {
   <p className="text-center text-slate-600">
     Don't have an account ?{" "}
      <Link
-                  to="/register"
+                  to="/signup"
                   className="font-semibold text-indigo-600 hover:text-indigo-700"
                 >
                   Create Account

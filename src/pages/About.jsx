@@ -13,7 +13,7 @@ function About() {
         <div className="max-w-6xl mx-auto px-6">
 
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-5xl font-bold text-slate-900">
+            <h1 className="text-5xl font-bold text-indigo-600">
               About Gigly
             </h1>
 

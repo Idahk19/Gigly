@@ -7,6 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
+   updateProfile,
 } from "firebase/auth";
 
 export const AuthContext = createContext();
@@ -16,8 +17,19 @@ export const AuthProvider = ({ children }) => {
 
   const provider = new GoogleAuthProvider();
 
-  const register = (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+const register = async (fullName, email, password) => {
+    
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+
+  await updateProfile(userCredential.user, {
+    displayName: fullName,
+  });
+
+  return userCredential;
 };
 
 const login = (email, password) => {
