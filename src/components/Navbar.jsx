@@ -14,7 +14,7 @@ function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-indigo-200 backdrop-blur-lg border-b border-slate-200">
-      <div className="max-w-7xl h-20 px-6 flex items-center justify-between">
+      <div className=" h-20 px-6 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-indigo-600 mr-3 flex items-center justify-center shadow-md">

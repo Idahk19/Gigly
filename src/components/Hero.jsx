@@ -16,7 +16,7 @@ function Hero() {
 
       <div className="absolute inset-0 bg-white/40 backdrop-blur-sm"></div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 lg:py-28">
+      <div className="relative z-10  mx-auto px-6 py-20 lg:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <h1 className="text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight">
@@ -53,7 +53,7 @@ function Hero() {
             <img
               src={HeroImage2}
               alt="Gigly Dashboard"
-              className="w-full max-w-xl"
+              className="w-full max-w-2xl"
             />
           </div>
         </div>
