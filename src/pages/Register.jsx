@@ -86,8 +86,7 @@ setConfirmPassword("");
 </h1>
 
 <p className="mt-6 max-w-md text-lg leading-8 text-slate-600">
-  Simplify your freelance workflow by managing projects, clients,
-  tasks, and payments from one beautiful workspace.
+  Simplify your freelance workflow!
 </p>  
     </div>
     
