@@ -1,7 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import RegisterImage from "../assets/images/RegisterImage.avif"
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth"
 
 function Register() {
+
+  const [ fullName, setFullName ] = useState("");
+  const [ email, setEmail ] = useState("");
+  const [ password, setPassword] = useState("");
+  const [ confirmPassword, setConfirmPassword ] = useState("");
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+
+     if (password !== confirmPassword) {
+    alert("Passwords do not match.");
+    return;
+  }
+   try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    alert("Account created successfully!");
+  } catch (error) {
+    console.log(error);
+    alert(error.message);
+  }
+
+  }
+
   return (
     <section>
     <div className="absolute inset-0">
@@ -34,16 +64,21 @@ function Register() {
   Join Gigly and start organizing your freelance business.
 </p>
 
-<form className="mt-8 space-y-5">
+<form
+  onSubmit={handleSubmit}
+  className="mt-8 space-y-5"
+>
   <div>
     <label className="block mb-2 text-sm font-medium text-slate-700">
       Full Name
     </label>
     <input
-      type="text"
-      placeholder="Enter your full name"
-      className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
-    />
+  type="text"
+  placeholder="Enter your full name"
+  value={fullName}
+  onChange={(e) => setFullName(e.target.value)}
+  className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
+/>
   </div>
 
   <div>
@@ -51,10 +86,12 @@ function Register() {
       Email Address
     </label>
     <input
-      type="email"
-      placeholder="Enter your email"
-      className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
-    />
+  type="email"
+  placeholder="Enter your email"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
+/>
   </div>
 
   <div>
@@ -62,10 +99,12 @@ function Register() {
       Password
     </label>
     <input
-      type="password"
-      placeholder="Create a password"
-      className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
-    />
+  type="password"
+  placeholder="Create a password"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
+/>
   </div>
 
   <div>
@@ -73,10 +112,12 @@ function Register() {
       Confirm Password
     </label>
     <input
-      type="password"
-      placeholder="Confirm your password"
-      className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
-    />
+  type="password"
+  placeholder="Confirm your password"
+  value={confirmPassword}
+  onChange={(e) => setConfirmPassword(e.target.value)}
+  className="w-full rounded-xl border border-slate-300 bg-white/60 px-4 py-3 outline-none backdrop-blur-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"
+/>
   </div>
 
   <button
