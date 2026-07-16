@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { X } from "lucide-react";
+import { db, auth } from "../firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { toast } from "sonner";
 
 
 function ProjectModal({ isOpen, onClose }) {
