@@ -42,12 +42,6 @@ import { Link } from 'react-router-dom';
           </li>
 
           <li>
-            <Link to="/features" className="hover:text-indigo-400 transition">
-              Features
-            </Link>
-          </li>
-
-          <li>
             <Link to="/pricing" className="hover:text-indigo-400 transition">
               Pricing
             </Link>
