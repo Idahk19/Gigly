@@ -9,6 +9,7 @@ import Support from "./pages/Support"
 import FAQ from "./pages/Faq"
 import About from "./pages/About" 
 import Dashboard from "./pages/Dashboard" 
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -23,7 +24,12 @@ function App() {
        <Route path='/support' element={<Support/>} />
        <Route path='/faq' element={<FAQ/>} />
        <Route path='/about' element={<About/>} />
-       <Route path='/dashboard' element={<Dashboard/>} />
+       <Route path='/dashboard'
+        element={
+          <ProtectedRoute>
+            <Dashboard/>
+          </ProtectedRoute>
+        } />
         </Routes>
       </Router> 
     </div>
