@@ -10,6 +10,7 @@ import FAQ from "./pages/Faq"
 import About from "./pages/About" 
 import Dashboard from "./pages/Dashboard" 
 import ProtectedRoute from "./components/ProtectedRoute";
+import Tasks from "./pages/Tasks"
 
 function App() {
   return (
@@ -30,6 +31,14 @@ function App() {
             <Dashboard/>
           </ProtectedRoute>
         } />
+          <Route
+        path="/dashboard/tasks"
+        element={
+          <ProtectedRoute>
+            <Tasks />
+          </ProtectedRoute>
+        }
+      />
         </Routes>
       </Router> 
     </div>

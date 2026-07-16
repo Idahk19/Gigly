@@ -34,12 +34,14 @@ function TaskModal({ isOpen, onClose }) {
         );
 
         const snapshot = await getDocs(q);
+         console.log("Projects");
 
         setProjects(
           snapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }))
+          
         );
       } catch (error) {
         console.log(error);
@@ -60,7 +62,7 @@ function TaskModal({ isOpen, onClose }) {
       setFormData((prev) => ({
         ...prev,
         projectId: value,
-        projectName: selectedProject?.title || "",
+        projectName: selectedProject?.projectName || "",
       }));
     } else {
       setFormData((prev) => ({
@@ -134,7 +136,7 @@ function TaskModal({ isOpen, onClose }) {
                   key={project.id}
                   value={project.id}
                 >
-                  {project.title}
+                  {project.projectName}
                 </option>
               ))}
             </select>
