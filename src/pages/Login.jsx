@@ -24,7 +24,7 @@ function Login() {
     setPassword("")
 
       toast.success("Login successful!");
-      navigate("/")
+      navigate("/dashboard")
   } catch (error) {
     toast.error(error.message);
   }

@@ -9,6 +9,7 @@ import {
   ListTodo,
   Settings,
   LogOut,
+  House,
   BriefcaseBusiness,
 } from "lucide-react";
 
@@ -26,10 +27,16 @@ function Sidebar() {
   };
 
   const menuItems = [
+    
     {
       name: "Dashboard",
       path: "/dashboard",
       icon: LayoutDashboard,
+    },
+    {
+      name: "Home",
+      path: "/",
+      icon: House,
     },
     {
       name: "Projects",

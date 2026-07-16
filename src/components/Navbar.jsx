@@ -70,29 +70,34 @@ function Navbar() {
         </ul>
 
         <div className="hidden md:flex items-center gap-4">
-          {user ? (
-            <>
-              <span className="text-slate-700 font-medium">
-                Hi, {user.displayName?.split(" ")[0] || "User"}
-              </span>
+         {user ? (
+  <>
+    <span className="text-slate-700 font-medium">
+      Hi, {user.displayName?.split(" ")[0] || "User"}
+    </span>
 
-              <button
-                onClick={handleLogout}
-                className="px-5 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 text-white transition"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link
-                to="/login"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl shadow-md transition"
-              >
-                Login
-              </Link>
-            </>
-          )}
+    <Link
+      to="/dashboard"
+      className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl shadow-md transition"
+    >
+      Dashboard
+    </Link>
+
+    <button
+      onClick={handleLogout}
+      className="px-5 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 text-white transition"
+    >
+      Logout
+    </button>
+  </>
+) : (
+  <Link
+    to="/login"
+    className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl shadow-md transition"
+  >
+    Login
+  </Link>
+)}
         </div>
 
         <button
@@ -136,30 +141,26 @@ function Navbar() {
 
             <hr className="border-slate-200" />
 
-            {user ? (
-              <>
-                <p className="text-slate-700 font-medium">
-                  Hi, {user.displayName?.split(" ")[0] || "User"}
-                </p>
+            <>
+  <p className="text-slate-700 font-medium">
+    Hi, {user.displayName?.split(" ")[0] || "User"}
+  </p>
 
-                <button
-                  onClick={handleLogout}
-                  className="w-full py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white transition"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-            
-                <Link
-                  to="/login"
-                  onClick={() => setIsOpen(false)}
-                  className="text-center bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl transition"
-                >
-                  login
-                </Link>
-            
-            )}
+  <Link
+    to="/dashboard"
+    onClick={() => setIsOpen(false)}
+    className="text-center bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl transition"
+  >
+    Dashboard
+  </Link>
+
+  <button
+    onClick={handleLogout}
+    className="w-full py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white transition"
+  >
+    Logout
+  </button>
+</>
           </div>
         </div>
       )}
