@@ -20,6 +20,27 @@ function ProjectModal({ isOpen, onClose }) {
     }
   };
 
+  const [projectName, setProjectName] = useState("");
+const [category, setCategory] = useState("");
+const [status, setStatus] = useState("Planning");
+const [budget, setBudget] = useState("");
+const [startDate, setStartDate] = useState("");
+const [deadline, setDeadline] = useState("");
+const [description, setDescription] = useState("");
+
+const [clientName, setClientName] = useState("");
+const [clientEmail, setClientEmail] = useState("");
+const [clientPhone, setClientPhone] = useState("");
+const [company, setCompany] = useState("");
+const [address, setAddress] = useState("");
+
+const [amount, setAmount] = useState("");
+const [paymentMethod, setPaymentMethod] = useState("Mpesa");
+const [paymentStatus, setPaymentStatus] = useState("Pending");
+const [dueDate, setDueDate] = useState("");
+const [reference, setReference] = useState("");
+const [notes, setNotes] = useState("");
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
       <div className="w-full max-w-3xl rounded-2xl bg-white shadow-2xl">
