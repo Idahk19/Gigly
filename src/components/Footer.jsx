@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
  function Footer() {
    return (
     <footer className="bg-slate-900 text-slate-300">
-  <div className="max-w-7xl px-6 py-16">
+  <div className=" px-6 py-16">
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
       {/* Brand */}
@@ -117,7 +117,7 @@ import { Link } from 'react-router-dom';
   <div className="border-t border-slate-800">
     <div className="max-w-7xl mx-auto px-6 py-6 flex justify-center">
       <p className="text-sm text-slate-500">
-        &copy; Gigly. All rights reserved.
+        &copy; 2026 Gigly. All rights reserved.
       </p>
     </div>
   </div>
