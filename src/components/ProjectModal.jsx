@@ -8,22 +8,7 @@ import { toast } from "sonner";
 function ProjectModal({ isOpen, onClose }) {
   const [step, setStep] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  if (!isOpen) return null;
-
-  const nextStep = () => {
-    if (step < 3) {
-      setStep(step + 1);
-    }
-  };
-
-  const prevStep = () => {
-    if (step > 1) {
-      setStep(step - 1);
-    }
-  };
-
-  const [projectName, setProjectName] = useState("");
+   const [projectName, setProjectName] = useState("");
 const [category, setCategory] = useState("");
 const [status, setStatus] = useState("Planning");
 const [budget, setBudget] = useState("");
@@ -43,6 +28,83 @@ const [paymentStatus, setPaymentStatus] = useState("Pending");
 const [dueDate, setDueDate] = useState("");
 const [reference, setReference] = useState("");
 const [notes, setNotes] = useState("");
+
+  if (!isOpen) return null;
+
+  const nextStep = () => {
+    if (step < 3) {
+      setStep(step + 1);
+    }
+  };
+
+  const prevStep = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+  };
+
+
+const handleCreateProject = async () => {
+   console.log("Button clicked");
+  try {
+    await addDoc(collection(db, "projects"), {
+      userId: auth.currentUser.uid,
+
+      projectName,
+      category,
+      status,
+      budget,
+      startDate,
+      deadline,
+      description,
+
+      clientName,
+      clientEmail,
+      clientPhone,
+      company,
+      address,
+
+      amount,
+      paymentMethod,
+      paymentStatus,
+      dueDate,
+      reference,
+      notes,
+
+      createdAt: serverTimestamp(),
+    });
+
+    toast.success("Project created successfully!");
+
+     setProjectName("");
+    setCategory("");
+    setStatus("Planning");
+    setBudget("");
+    setStartDate("");
+    setDeadline("");
+    setDescription("");
+
+    setClientName("");
+    setClientEmail("");
+    setClientPhone("");
+    setCompany("");
+    setAddress("");
+
+    setAmount("");
+    setPaymentMethod("Mpesa");
+    setPaymentStatus("Pending");
+    setDueDate("");
+    setReference("");
+    setNotes("");
+
+    setStep(1);
+
+    onClose();
+  } catch (error) {
+    console.log(error);
+    toast.error("Failed to create project.");
+  }
+};
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
@@ -441,10 +503,12 @@ onChange={(e) => setNotes(e.target.value)}
             </button>
           ) : (
             <button
-              className="px-6 py-3 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700"
-            >
-              Create Project
-            </button>
+  type="button"
+  onClick={handleCreateProject}
+  className="rounded-xl bg-indigo-600 px-6 py-3 text-white font-semibold hover:bg-indigo-700"
+>
+  Create Project
+</button>
           )}
 
         </div>
