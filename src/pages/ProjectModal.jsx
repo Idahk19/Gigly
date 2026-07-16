@@ -103,40 +103,253 @@ function ProjectModal({ isOpen, onClose }) {
           </div>
 
           {step === 1 && (
-            <div>
-              <h3 className="text-xl font-semibold mb-6">
-                Project Information
-              </h3>
+  <div className="space-y-6">
+    <div>
+      <label className="block mb-2 font-medium text-slate-700">
+        Project Name
+      </label>
 
-              <p className="text-slate-600">
-                Project fields will go here.
-              </p>
-            </div>
-          )}
+      <input
+        type="text"
+        placeholder="Enter project name"
+        className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+      />
+    </div>
 
-          {step === 2 && (
-            <div>
-              <h3 className="text-xl font-semibold mb-6">
-                Client Information
-              </h3>
+    <div className="grid md:grid-cols-2 gap-6">
+      <div>
+        <label className="block mb-2 font-medium text-slate-700">
+          Category
+        </label>
 
-              <p className="text-slate-600">
-                Client fields will go here.
-              </p>
-            </div>
-          )}
+        <select className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+          <option>Web Development</option>
+          <option>UI/UX Design</option>
+          <option>Graphic Design</option>
+          <option>Mobile App</option>
+          <option>Marketing</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label className="block mb-2 font-medium text-slate-700">
+          Status
+        </label>
+
+        <select className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+          <option>Planning</option>
+          <option>In Progress</option>
+          <option>Completed</option>
+          <option>On Hold</option>
+        </select>
+      </div>
+    </div>
+
+    <div>
+      <label className="block mb-2 font-medium text-slate-700">
+        Budget (KES)
+      </label>
+
+      <input
+        type="number"
+        placeholder="50000"
+        className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+      />
+    </div>
+
+    <div className="grid md:grid-cols-2 gap-6">
+      <div>
+        <label className="block mb-2 font-medium text-slate-700">
+          Start Date
+        </label>
+
+        <input
+          type="date"
+          className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+        />
+      </div>
+
+      <div>
+        <label className="block mb-2 font-medium text-slate-700">
+          Deadline
+        </label>
+
+        <input
+          type="date"
+          className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+        />
+      </div>
+    </div>
+
+    <div>
+      <label className="block mb-2 font-medium text-slate-700">
+        Description
+      </label>
+
+      <textarea
+        rows="4"
+        placeholder="Describe the project..."
+        className="w-full rounded-xl border border-slate-300 px-4 py-3 resize-none outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+      ></textarea>
+    </div>
+  </div>
+)}
+
+         {step === 2 && (
+  <div className="space-y-6">
+
+    <div>
+      <label className="block mb-2 font-medium text-slate-700">
+        Client Name
+      </label>
+
+      <input
+        type="text"
+        placeholder="John Doe"
+        className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+      />
+    </div>
+
+    <div className="grid md:grid-cols-2 gap-6">
+      <div>
+        <label className="block mb-2 font-medium text-slate-700">
+          Email
+        </label>
+
+        <input
+          type="email"
+          placeholder="john@example.com"
+          className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+        />
+      </div>
+
+      <div>
+        <label className="block mb-2 font-medium text-slate-700">
+          Phone Number
+        </label>
+
+        <input
+          type="tel"
+          placeholder="+254..."
+          className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+        />
+      </div>
+    </div>
+
+    <div>
+      <label className="block mb-2 font-medium text-slate-700">
+        Company
+      </label>
+
+      <input
+        type="text"
+        placeholder="ABC Company"
+        className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+      />
+    </div>
+
+    <div>
+      <label className="block mb-2 font-medium text-slate-700">
+        Address
+      </label>
+
+      <textarea
+        rows="3"
+        placeholder="Client address"
+        className="w-full rounded-xl border border-slate-300 px-4 py-3 resize-none outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+      ></textarea>
+    </div>
+
+  </div>
+)}
 
           {step === 3 && (
-            <div>
-              <h3 className="text-xl font-semibold mb-6">
-                Payment Information
-              </h3>
+  <div className="space-y-6">
 
-              <p className="text-slate-600">
-                Payment fields will go here.
-              </p>
-            </div>
-          )}
+    <div className="grid md:grid-cols-2 gap-6">
+
+      <div>
+        <label className="block mb-2 font-medium text-slate-700">
+          Amount (KES)
+        </label>
+
+        <input
+          type="number"
+          placeholder="50000"
+          className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+        />
+      </div>
+
+      <div>
+        <label className="block mb-2 font-medium text-slate-700">
+          Payment Method
+        </label>
+
+        <select className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+          <option>Mpesa</option>
+          <option>Bank Transfer</option>
+          <option>Cash</option>
+          <option>PayPal</option>
+          <option>Card</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div className="grid md:grid-cols-2 gap-6">
+
+      <div>
+        <label className="block mb-2 font-medium text-slate-700">
+          Payment Status
+        </label>
+
+        <select className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+          <option>Pending</option>
+          <option>Partially Paid</option>
+          <option>Paid</option>
+        </select>
+      </div>
+
+      <div>
+        <label className="block mb-2 font-medium text-slate-700">
+          Due Date
+        </label>
+
+        <input
+          type="date"
+          className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+        />
+      </div>
+
+    </div>
+
+    <div>
+      <label className="block mb-2 font-medium text-slate-700">
+        Payment Reference
+      </label>
+
+      <input
+        type="text"
+        placeholder="Transaction ID or Invoice Number"
+        className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+      />
+    </div>
+
+    <div>
+      <label className="block mb-2 font-medium text-slate-700">
+        Notes
+      </label>
+
+      <textarea
+        rows="3"
+        placeholder="Optional notes..."
+        className="w-full rounded-xl border border-slate-300 px-4 py-3 resize-none outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+      ></textarea>
+    </div>
+
+  </div>
+)}
         </div>
 
         <div className="flex justify-between border-t px-8 py-5">
