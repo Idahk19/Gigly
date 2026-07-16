@@ -134,6 +134,8 @@ const [notes, setNotes] = useState("");
 
       <input
         type="text"
+         value={projectName}
+    onChange={(e)=>setProjectName(e.target.value)}
         placeholder="Enter project name"
         className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
       />
@@ -145,7 +147,10 @@ const [notes, setNotes] = useState("");
           Category
         </label>
 
-        <select className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+        <select className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+        value={category}
+onChange={(e) => setCategory(e.target.value)}
+        >
           <option>Web Development</option>
           <option>UI/UX Design</option>
           <option>Graphic Design</option>
@@ -160,7 +165,10 @@ const [notes, setNotes] = useState("");
           Status
         </label>
 
-        <select className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+        <select className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+        value={status}
+onChange={(e) => setStatus(e.target.value)}
+        >
           <option>Planning</option>
           <option>In Progress</option>
           <option>Completed</option>
@@ -176,6 +184,8 @@ const [notes, setNotes] = useState("");
 
       <input
         type="number"
+        value={budget}
+onChange={(e) => setBudget(e.target.value)}
         placeholder="50000"
         className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
       />
@@ -189,6 +199,8 @@ const [notes, setNotes] = useState("");
 
         <input
           type="date"
+          value={startDate}
+onChange={(e) => setStartDate(e.target.value)}
           className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
         />
       </div>
@@ -200,6 +212,8 @@ const [notes, setNotes] = useState("");
 
         <input
           type="date"
+          value={deadline}
+onChange={(e) => setDeadline(e.target.value)}
           className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
         />
       </div>
@@ -213,6 +227,8 @@ const [notes, setNotes] = useState("");
       <textarea
         rows="4"
         placeholder="Describe the project..."
+        value={description}
+onChange={(e) => setDescription(e.target.value)}
         className="w-full rounded-xl border border-slate-300 px-4 py-3 resize-none outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
       ></textarea>
     </div>
@@ -230,6 +246,8 @@ const [notes, setNotes] = useState("");
       <input
         type="text"
         placeholder="John Doe"
+        value={clientName}
+onChange={(e) => setClientName(e.target.value)}
         className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
       />
     </div>
@@ -243,6 +261,8 @@ const [notes, setNotes] = useState("");
         <input
           type="email"
           placeholder="john@example.com"
+          value={clientEmail}
+onChange={(e) => setClientEmail(e.target.value)}
           className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
         />
       </div>
@@ -255,6 +275,8 @@ const [notes, setNotes] = useState("");
         <input
           type="tel"
           placeholder="+254..."
+          value={clientPhone}
+onChange={(e) => setClientPhone(e.target.value)}
           className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
         />
       </div>
@@ -268,6 +290,8 @@ const [notes, setNotes] = useState("");
       <input
         type="text"
         placeholder="ABC Company"
+        value={company}
+onChange={(e) => setCompany(e.target.value)}
         className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
       />
     </div>
@@ -280,6 +304,8 @@ const [notes, setNotes] = useState("");
       <textarea
         rows="3"
         placeholder="Client address"
+        value={address}
+onChange={(e) => setAddress(e.target.value)}
         className="w-full rounded-xl border border-slate-300 px-4 py-3 resize-none outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
       ></textarea>
     </div>
@@ -300,6 +326,8 @@ const [notes, setNotes] = useState("");
         <input
           type="number"
           placeholder="50000"
+          value={amount}
+onChange={(e) => setAmount(e.target.value)}
           className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
         />
       </div>
@@ -309,7 +337,10 @@ const [notes, setNotes] = useState("");
           Payment Method
         </label>
 
-        <select className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+        <select className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+        value={paymentMethod}
+onChange={(e) => setPaymentMethod(e.target.value)}
+        >
           <option>Mpesa</option>
           <option>Bank Transfer</option>
           <option>Cash</option>
@@ -327,7 +358,10 @@ const [notes, setNotes] = useState("");
           Payment Status
         </label>
 
-        <select className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+        <select className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+        value={paymentStatus}
+onChange={(e) => setPaymentStatus(e.target.value)}
+        >
           <option>Pending</option>
           <option>Partially Paid</option>
           <option>Paid</option>
@@ -342,6 +376,8 @@ const [notes, setNotes] = useState("");
         <input
           type="date"
           className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+        value={dueDate}
+onChange={(e) => setDueDate(e.target.value)}
         />
       </div>
 
@@ -356,7 +392,9 @@ const [notes, setNotes] = useState("");
         type="text"
         placeholder="Transaction ID or Invoice Number"
         className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-      />
+      value={reference}
+onChange={(e) => setReference(e.target.value)}
+       />
     </div>
 
     <div>
@@ -368,7 +406,9 @@ const [notes, setNotes] = useState("");
         rows="3"
         placeholder="Optional notes..."
         className="w-full rounded-xl border border-slate-300 px-4 py-3 resize-none outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-      ></textarea>
+     value={notes}
+onChange={(e) => setNotes(e.target.value)}
+     ></textarea>
     </div>
 
   </div>
