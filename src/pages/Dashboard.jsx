@@ -3,9 +3,71 @@ import Sidebar from '../components/SideBar'
 import TopBar from '../components/Topbar'
 import { Plus } from "lucide-react";
 import ProjectModal from '../components/ProjectModal';
+import { db, auth } from "../firebase";
+
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
 function Dashboard() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [projects, setProjects] = useState([]);
+
+    useEffect(() => {
+  const fetchProjects = async () => {
+    try {
+      const q = query(
+        collection(db, "projects"),
+        where("userId", "==", auth.currentUser.uid)
+      );
+
+      const snapshot = await getDocs(q);
+
+      const projectList = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setProjects(projectList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (auth.currentUser) {
+    fetchProjects();
+  }
+}, []);
+const totalProjects = projects.length;
+
+const totalClients = new Set(
+  projects.map(project => project.clientEmail)
+).size;
+
+const ongoingProjects = projects.filter(
+  project => project.status === "In Progress"
+).length;
+
+const completedProjects = projects.filter(
+  project => project.status === "Completed"
+).length;
+
+const totalRevenue = projects
+  .filter(project => project.paymentStatus === "Paid")
+  .reduce(
+    (sum, project) => sum + Number(project.amount || 0),
+    0
+  );
+
+const unpaidRevenue = projects
+  .filter(project => project.paymentStatus !== "Paid")
+  .reduce(
+    (sum, project) => sum + Number(project.amount || 0),
+    0
+  );
   return (
     
     <div>
