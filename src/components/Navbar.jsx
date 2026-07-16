@@ -87,16 +87,9 @@ function Navbar() {
             <>
               <Link
                 to="/login"
-                className="text-slate-700 hover:text-indigo-600 font-medium transition"
-              >
-                Login
-              </Link>
-
-              <Link
-                to="/signup"
                 className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl shadow-md transition"
               >
-                Get Started
+                Login
               </Link>
             </>
           )}
@@ -157,23 +150,15 @@ function Navbar() {
                 </button>
               </>
             ) : (
-              <>
+            
                 <Link
                   to="/login"
                   onClick={() => setIsOpen(false)}
-                  className="text-center py-3 text-slate-700 hover:text-indigo-600 font-medium"
-                >
-                  Login
-                </Link>
-
-                <Link
-                  to="/signup"
-                  onClick={() => setIsOpen(false)}
                   className="text-center bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl transition"
                 >
-                  Get Started
+                  login
                 </Link>
-              </>
+            
             )}
           </div>
         </div>
