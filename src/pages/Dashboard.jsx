@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Sidebar from '../components/SideBar'
 import TopBar from '../components/Topbar'
-import { Plus } from "lucide-react";
+import { Plus, FolderKanban,
+    Users,
+    Wallet,
+    Clock3,
+    CheckCircle2,
+    CircleDollarSign, } from "lucide-react";
 import ProjectModal from '../components/ProjectModal';
+import StatsCard from "../components/StatsCard";
 import { db, auth } from "../firebase";
 
 import {
@@ -95,6 +101,51 @@ const unpaidRevenue = projects
   New Project
 </button>
       </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-10">
+
+    <StatsCard
+        title="Projects"
+        value={totalProjects}
+        icon={<FolderKanban className="text-white" />}
+        color="bg-indigo-600"
+    />
+
+    <StatsCard
+        title="Clients"
+        value={totalClients}
+        icon={<Users className="text-white" />}
+        color="bg-violet-600"
+    />
+
+    <StatsCard
+        title="Revenue"
+        value={`KES ${totalRevenue.toLocaleString()}`}
+        icon={<Wallet className="text-white" />}
+        color="bg-emerald-500"
+    />
+
+    <StatsCard
+        title="Ongoing"
+        value={ongoingProjects}
+        icon={<Clock3 className="text-white" />}
+        color="bg-amber-500"
+    />
+
+    <StatsCard
+        title="Completed"
+        value={completedProjects}
+        icon={<CheckCircle2 className="text-white" />}
+        color="bg-blue-600"
+    />
+
+    <StatsCard
+        title="Unpaid"
+        value={`KES ${unpaidRevenue.toLocaleString()}`}
+        icon={<CircleDollarSign className="text-white" />}
+        color="bg-rose-500"
+    />
+
+</div>
     </main>
     </div>
     
