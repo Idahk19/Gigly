@@ -61,7 +61,7 @@ setConfirmPassword("");
     const result = await googleSignIn();
     toast.success("Signed in with Google successfully!");
 
-    navigate("/login");
+    navigate("/");
   } catch (error) {
   console.log("Code:", error.code);
   console.log("Message:", error.message);
