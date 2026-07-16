@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 
+
 function ProjectModal({ isOpen, onClose }) {
   const [step, setStep] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!isOpen) return null;
 
