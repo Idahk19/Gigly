@@ -223,7 +223,7 @@ setConfirmPassword("");
   <p className="text-center text-slate-600">
     Already have an account?{" "}
     <Link
-  to="/login"
+  to="/"
   className="font-semibold text-indigo-600 hover:text-indigo-700"
 >
   Sign In
