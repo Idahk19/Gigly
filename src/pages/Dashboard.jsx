@@ -74,6 +74,18 @@ const unpaidRevenue = projects
     (sum, project) => sum + Number(project.amount || 0),
     0
   );
+  const recentProjects = [...projects]
+  .sort(
+    (a, b) =>
+      new Date(b.createdAt) - new Date(a.createdAt)
+  )
+  .slice(0, 5);
+  const upcomingProjects = [...projects]
+  .sort(
+    (a, b) =>
+      new Date(a.deadline) - new Date(b.deadline)
+  )
+  .slice(0, 4);
   return (
     
     <div>
@@ -146,6 +158,89 @@ const unpaidRevenue = projects
     />
 
 </div>
+<section className="mt-10">
+<h2 className="text-2xl font-bold text-slate-900 mb-5">
+Recent Projects
+</h2>
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+{recentProjects.map((project)=>(
+<div 
+key={project.id}
+className="bg-white rounded-xl shadow p-5"
+>
+<h3 className="text-lg font-bold text-indigo-600">
+{project.projectName}
+</h3>
+
+<p className="text-slate-500 mt-2">
+Status:{project.status}
+</p>
+
+<p className="text-sm mt-3">
+Client: {project.clientName}
+</p>
+
+<p className="text-sm text-slate-400 mt-2">
+Created: {project.createdAt?.toDate().toLocaleDateString()}
+</p>
+
+</div>
+))}
+</div>
+</section>
+
+
+{/* Upcoming Deadlines */}
+<section className="mt-10">
+<h2 className="text-2xl font-bold text-slate-900 mb-5">
+Upcoming Deadlines
+</h2>
+
+<div className="space-y-4">
+{upcomingProjects.map((project)=>{
+
+const today = new Date();
+const deadline = new Date(project.deadline);
+
+const daysLeft = Math.ceil(
+(deadline - today) / 
+(1000 * 60 * 60 * 24)
+);
+
+let urgency = "bg-green-100 text-green-700";
+
+if(daysLeft <= 3){
+urgency = "bg-red-100 text-red-700";
+}else if(daysLeft <= 7){
+urgency = "bg-yellow-100 text-yellow-700";
+}
+
+return (
+<div
+key={project.id}
+className="bg-white rounded-xl shadow p-5 flex justify-between items-center"
+>
+<div>
+<h3 className="font-bold text-slate-900">
+{project.title}
+</h3>
+
+<p className="text-slate-500">
+Deadline: {project.deadline}
+</p>
+</div>
+
+<div className={`px-4 py-2 rounded-lg font-semibold ${urgency}`}>
+{daysLeft} days left
+</div>
+
+</div>
+)
+
+})}
+</div>
+</section>
     </main>
     </div>
     
@@ -154,6 +249,7 @@ const unpaidRevenue = projects
   isOpen={isModalOpen}
   onClose={() => setIsModalOpen(false)}
 />
+
     </div>
     
   )
