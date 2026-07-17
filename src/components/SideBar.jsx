@@ -44,16 +44,6 @@ function Sidebar() {
       icon: FolderKanban,
     },
     {
-      name: "Clients",
-      path: "/dashboard/clients",
-      icon: Users,
-    },
-    {
-      name: "Payments",
-      path: "/dashboard/payments",
-      icon: CreditCard,
-    },
-    {
       name: "Tasks",
       path: "/dashboard/tasks",
       icon: ListTodo,

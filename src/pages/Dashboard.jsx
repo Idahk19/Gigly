@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Sidebar from '../components/SideBar'
-import TopBar from '../components/Topbar'
+import TopBar from '../components/TopBar'
 import { Plus, FolderKanban,
     Users,
     Wallet,
@@ -173,15 +173,15 @@ className="bg-white rounded-xl shadow p-5"
 {project.projectName}
 </h3>
 
-<p className="text-slate-500 mt-2">
+<p className="text-md text-slate-500 mt-2">
 Status:{project.status}
 </p>
 
-<p className="text-sm mt-3">
+<p className="text-lg mt-3">
 Client: {project.clientName}
 </p>
 
-<p className="text-sm text-slate-400 mt-2">
+<p className="text-sm text-slate-500 mt-2">
 Created: {project.createdAt?.toDate().toLocaleDateString()}
 </p>
 
@@ -223,7 +223,7 @@ className="bg-white rounded-xl shadow p-5 flex justify-between items-center"
 >
 <div>
 <h3 className="font-bold text-slate-900">
-{project.title}
+{project.projectName}
 </h3>
 
 <p className="text-slate-500">
