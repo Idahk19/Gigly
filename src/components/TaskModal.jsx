@@ -9,6 +9,7 @@ import {
   addDoc,
   Timestamp,
 } from "firebase/firestore";
+import { toast } from "sonner";
 
 
 function TaskModal({ isOpen, onClose }) {
@@ -23,7 +24,7 @@ function TaskModal({ isOpen, onClose }) {
     status: "Todo",
   });
 
-  useEffect(() => {
+  useEffect(() => {  // fatch projects
     if (!isOpen || !auth.currentUser) return;
 
     const fetchProjects = async () => {
@@ -52,7 +53,7 @@ function TaskModal({ isOpen, onClose }) {
   }, [isOpen]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target; // object destructuring
 
     if (name === "projectId") {
       const selectedProject = projects.find(
@@ -84,7 +85,7 @@ function TaskModal({ isOpen, onClose }) {
         completedAt: null,
       });
 
-      alert("Task added successfully!");
+      toast.success("Task added successfully!");
 
       setFormData({
         projectId: "",
