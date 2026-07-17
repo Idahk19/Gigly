@@ -1,8 +1,17 @@
 import { useState, useEffect } from "react";
 import Sidebar from "../components/SideBar";
 import TopBar from "../components/Topbar";
-import TaskModal from "../components/TaskModal";
-import { Plus, CheckCircle2, Circle, Clock, Calendar, AlertCircle, TrendingUp } from "lucide-react";
+import TaskModal from "../components/TaskModal";import {
+  Plus,
+  CheckCircle2,
+  Circle,
+  Clock,
+  Calendar,
+  AlertCircle,
+  TrendingUp,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 import { db, auth } from "../firebase";
 import {
   collection,
@@ -12,11 +21,16 @@ import {
   doc,
   updateDoc,
   Timestamp,
+   deleteDoc,
 } from "firebase/firestore";
+import Swal from "sweetalert2";
 
 function Tasks() {
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [editingTaskId, setEditingTaskId] = useState(null);
+const [editedTitle, setEditedTitle] = useState("");
+const [editedPriority, setEditedPriority] = useState("Medium");
 
   const today = new Date().toLocaleDateString("en-KE", {
     weekday: "long",
@@ -63,6 +77,65 @@ function Tasks() {
       console.log(error);
     }
   };
+  // deleting tasks
+ const handleDeleteTask = async (taskId) => {
+  const result = await Swal.fire({
+    title: "Delete task?",
+    text: "This action cannot be undone.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#4f46e5",
+    cancelButtonColor: "#ef4444",
+    confirmButtonText: "Delete",
+  });
+
+  if (!result.isConfirmed) return;
+
+  try {
+    await deleteDoc(doc(db, "tasks", taskId));
+
+    setTasks((prev) =>
+      prev.filter((task) => task.id !== taskId)
+    );
+
+    toast.success("Task deleted.");
+  } catch (error) {
+    toast.error("Failed to delete task.");
+  }
+};
+const handleEdit = (task) => {
+  setEditingTaskId(task.id);
+  setEditedTitle(task.title);
+  setEditedPriority(task.priority);
+};
+// saving editted tsak
+const handleSaveEdit = async (taskId) => {
+  try {
+    await updateDoc(doc(db, "tasks", taskId), {
+      title: editedTitle,
+      priority: editedPriority,
+    });
+
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === taskId
+          ? {
+              ...task,
+              title: editedTitle,
+              priority: editedPriority,
+            }
+          : task
+      )
+    );
+
+    setEditingTaskId(null);
+
+    toast.success("Task updated successfully.");
+  } catch (error) {
+    console.log(error);
+    toast.error("Failed to update task.");
+  }
+};
 
   const todaysTasks = tasks.filter((task) => {
     if (!task.dueDate) return false; 
@@ -266,34 +339,99 @@ function Tasks() {
               </div>
             ) : (
               <div className="grid gap-4">
-                {todaysTasks.map((task) => (
-                  <div
-                    key={task.id}
-                    className="bg-white rounded-2xl shadow-sm border border-indigo-100/50 p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:shadow-lg transition-all duration-300 hover:border-indigo-200"
-                  >
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-1">
-                        <h3 className="text-lg font-semibold text-slate-900">
-                          {task.title}
-                        </h3>
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getPriorityColor(task.priority)}`}>
-                          {task.priority || "Medium"}
-                        </span>
-                      </div>
-                      <p className="text-slate-500 text-sm flex items-center gap-1">
-                        {task.projectName || "No Project"}
-                      </p>
-                    </div>
+               {todaysTasks.map((task) => (
+  <div
+    key={task.id}
+    className="bg-white rounded-2xl shadow-sm border border-indigo-100 p-5 hover:shadow-lg transition"
+  >
+    {editingTaskId === task.id ? (
+      <>
+        <input
+          type="text"
+          value={editedTitle}
+          onChange={(e) => setEditedTitle(e.target.value)}
+          className="w-full border rounded-xl p-3 mb-3"
+        />
 
-                    <button
-                      onClick={() => handleMarkComplete(task.id)}
-                      className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white px-5 py-2.5 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 whitespace-nowrap text-sm font-medium"
-                    >
-                      <CheckCircle2 size={18} />
-                      Complete
-                    </button>
-                  </div>
-                ))}
+        <select
+          value={editedPriority}
+          onChange={(e) =>
+            setEditedPriority(e.target.value)
+          }
+          className="w-full border rounded-xl p-3 mb-4"
+        >
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+        </select>
+
+        <div className="flex gap-3">
+          <button
+            onClick={() => handleSaveEdit(task.id)}
+            className="bg-indigo-600 text-white px-5 py-2 rounded-xl"
+          >
+            Save
+          </button>
+
+          <button
+            onClick={() => setEditingTaskId(null)}
+            className="bg-slate-200 px-5 py-2 rounded-xl"
+          >
+            Cancel
+          </button>
+        </div>
+      </>
+    ) : (
+      <div className="flex justify-between items-center">
+        <div>
+          <div className="flex items-center gap-3">
+            <h3 className="text-lg font-semibold">
+              {task.title}
+            </h3>
+
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-medium border ${getPriorityColor(
+                task.priority
+              )}`}
+            >
+              {task.priority}
+            </span>
+          </div>
+
+          <p className="text-slate-500 mt-1">
+            {task.projectName}
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => handleMarkComplete(task.id)}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded-xl transition"
+            title="Complete"
+          >
+            <CheckCircle2 size={18} />
+          </button>
+
+          <button
+            onClick={() => handleEdit(task)}
+            className="bg-amber-500 hover:bg-amber-600 text-white p-3 rounded-xl transition"
+            title="Edit"
+          >
+            <Pencil size={18} />
+          </button>
+
+          <button
+            onClick={() => handleDeleteTask(task.id)}
+            className="bg-red-500 hover:bg-red-600 text-white p-3 rounded-xl transition"
+            title="Delete"
+          >
+            <Trash2 size={18} />
+          </button>
+        </div>
+      </div>
+    )}
+  </div>
+))}
               </div>
             )}
           </section>
