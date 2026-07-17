@@ -23,55 +23,55 @@ function Tasks() {
     day: "numeric",
     month: "long",
     year: "numeric",
-  });
+  });// Creates todays date
 
-  const fetchTasks = async () => {
-    if (!auth.currentUser) return;
+  const fetchTasks = async () => {  //running while we wait
+    if (!auth.currentUser) return; //if nobody is logged in stop
 
-    try {
+    try { // go to collection in db, query tasks in colletion
       const q = query(
         collection(db, "tasks"),
-        where("userId", "==", auth.currentUser.uid)
+        where("userId", "==", auth.currentUser.uid) // condition
       );
 
-      const snapshot = await getDocs(q);
+      const snapshot = await getDocs(q); //reply from server
 
       const fetchedTasks = snapshot.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data(),
-      }));
+        ...doc.data(), // every other thing
+      })); // go through every doc and make a new array
 
-      setTasks(fetchedTasks);
+      setTasks(fetchedTasks); // store in rect state
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
+  useEffect(() => { // when the page first loads run fetchTasks
     fetchTasks();
-  }, []);
+  }, []); // [] run only once
 
   const handleMarkComplete = async (taskId) => {
     try {
-      await updateDoc(doc(db, "tasks", taskId), {
+      await updateDoc(doc(db, "tasks", taskId), { // updates firestore
         status: "Completed",
         completedAt: Timestamp.now(),
       });
 
-      await fetchTasks();
+      await fetchTasks(); // new data after update
     } catch (error) {
       console.log(error);
     }
   };
 
   const todaysTasks = tasks.filter((task) => {
-    if (!task.dueDate) return false;
+    if (!task.dueDate) return false; 
 
-    const taskDate = task.dueDate.toDate();
+    const taskDate = task.dueDate.toDate(); // converts firestore timestamp into js date
 
     return (
       taskDate.toDateString() === new Date().toDateString() &&
-      task.status !== "Completed"
+      task.status !== "Completed"  // compare the date with todays date 
     );
   });
 
@@ -80,35 +80,35 @@ function Tasks() {
     if (!task.completedAt) return false;
 
     const completed =
-      task.completedAt.toDate instanceof Function
+      task.completedAt.toDate instanceof Function // checkif completedAt has a toDate function
         ? task.completedAt.toDate()
-        : new Date(task.completedAt);
+        : new Date(task.completedAt); // make it a date today
 
     return completed.toDateString() === new Date().toDateString();
-  });
+  });  // toDateString removes time
 
   const totalToday = todaysTasks.length + completedToday.length;
   const progress = totalToday === 0 ? 0 : (completedToday.length / totalToday) * 100;
 
   const today1 = new Date();
-  today1.setHours(0, 0, 0, 0);
+  today1.setHours(0, 0, 0, 0); //change to midnight to avoid errors
 
   const carryOverTasks = tasks.filter((task) => {
     if (task.status === "Completed") return false;
-    if (!task.dueDate) return false;
+    if (!task.dueDate) return false; // skip ones that dont have a due date
 
     const dueDate =
       task.dueDate.toDate instanceof Function
         ? task.dueDate.toDate()
         : new Date(task.dueDate);
 
-    dueDate.setHours(0, 0, 0, 0);
+    dueDate.setHours(0, 0, 0, 0); // set to midnight
     
-    return dueDate < today1;
+    return dueDate < today1; 
   });
 
   const history = tasks.reduce((groups, task) => {
-    if (!task.dueDate) return groups;
+    if (!task.dueDate) return groups; // skips tasks 
 
     const date =
       task.dueDate.toDate instanceof Function
@@ -120,13 +120,13 @@ function Tasks() {
       day: "numeric",
       month: "long",
       year: "numeric",
-    });
+    }); // Friday, 17 July 2026  has that instead of Fri Jul 17 2026
 
-    if (!groups[formattedDate]) {
-      groups[formattedDate] = [];
+    if (!groups[formattedDate]) {  // if not created
+      groups[formattedDate] = []; // create empty array
     }
 
-    groups[formattedDate].push(task);
+    groups[formattedDate].push(task); // add task
 
     return groups;
   }, {});
