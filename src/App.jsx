@@ -11,6 +11,7 @@ import About from "./pages/About"
 import Dashboard from "./pages/Dashboard" 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Tasks from "./pages/Tasks"
+import Projects from "./pages/Projects";
 
 function App() {
   return (
@@ -36,6 +37,14 @@ function App() {
         element={
           <ProtectedRoute>
             <Tasks />
+          </ProtectedRoute>
+        }
+      />
+          <Route
+        path="/dashboard/projects"
+        element={
+          <ProtectedRoute>
+            <Projects />
           </ProtectedRoute>
         }
       />
