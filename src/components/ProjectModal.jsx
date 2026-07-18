@@ -1,35 +1,120 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { db, auth } from "../firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  updateDoc,
+  doc,
+  collection,
+  serverTimestamp,
+} from "firebase/firestore";
 import { toast } from "sonner";
 
+const emptyForm = {
+  projectName: "",
+  category: "Web Development",
+  status: "Planning",
+  budget: "",
+  startDate: "",
+  deadline: "",
+  description: "",
 
-function ProjectModal({ isOpen, onClose }) {
+  clientName: "",
+  clientEmail: "",
+  clientPhone: "",
+  company: "",
+  address: "",
+
+  amount: "",
+  paymentMethod: "Mpesa",
+  paymentStatus: "Pending",
+  dueDate: "",
+  reference: "",
+  notes: "",
+};
+
+function ProjectModal({ isOpen, onClose, project }) {
   const [step, setStep] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-   const [projectName, setProjectName] = useState("");
-const [category, setCategory] = useState("");
-const [status, setStatus] = useState("Planning");
-const [budget, setBudget] = useState("");
-const [startDate, setStartDate] = useState("");
-const [deadline, setDeadline] = useState("");
-const [description, setDescription] = useState("");
 
-const [clientName, setClientName] = useState("");
-const [clientEmail, setClientEmail] = useState("");
-const [clientPhone, setClientPhone] = useState("");
-const [company, setCompany] = useState("");
-const [address, setAddress] = useState("");
+  const [projectName, setProjectName] = useState(emptyForm.projectName);
+  const [category, setCategory] = useState(emptyForm.category);
+  const [status, setStatus] = useState(emptyForm.status);
+  const [budget, setBudget] = useState(emptyForm.budget);
+  const [startDate, setStartDate] = useState(emptyForm.startDate);
+  const [deadline, setDeadline] = useState(emptyForm.deadline);
+  const [description, setDescription] = useState(emptyForm.description);
 
-const [amount, setAmount] = useState("");
-const [paymentMethod, setPaymentMethod] = useState("Mpesa");
-const [paymentStatus, setPaymentStatus] = useState("Pending");
-const [dueDate, setDueDate] = useState("");
-const [reference, setReference] = useState("");
-const [notes, setNotes] = useState("");
+  const [clientName, setClientName] = useState(emptyForm.clientName);
+  const [clientEmail, setClientEmail] = useState(emptyForm.clientEmail);
+  const [clientPhone, setClientPhone] = useState(emptyForm.clientPhone);
+  const [company, setCompany] = useState(emptyForm.company);
+  const [address, setAddress] = useState(emptyForm.address);
+
+  const [amount, setAmount] = useState(emptyForm.amount);
+  const [paymentMethod, setPaymentMethod] = useState(emptyForm.paymentMethod);
+  const [paymentStatus, setPaymentStatus] = useState(emptyForm.paymentStatus);
+  const [dueDate, setDueDate] = useState(emptyForm.dueDate);
+  const [reference, setReference] = useState(emptyForm.reference);
+  const [notes, setNotes] = useState(emptyForm.notes);
+
+  const isEditing = Boolean(project?.id);
+
+  // populate the form when opening in edit mode, reset when opening in create mode
+  useEffect(() => {
+    if (!isOpen) return;
+
+    if (project) {
+      setProjectName(project.projectName || "");
+      setCategory(project.category || emptyForm.category);
+      setStatus(project.status || emptyForm.status);
+      setBudget(project.budget || "");
+      setStartDate(project.startDate || "");
+      setDeadline(project.deadline || "");
+      setDescription(project.description || "");
+
+      setClientName(project.clientName || "");
+      setClientEmail(project.clientEmail || "");
+      setClientPhone(project.clientPhone || "");
+      setCompany(project.company || "");
+      setAddress(project.address || "");
+
+      setAmount(project.amount || "");
+      setPaymentMethod(project.paymentMethod || emptyForm.paymentMethod);
+      setPaymentStatus(project.paymentStatus || emptyForm.paymentStatus);
+      setDueDate(project.dueDate || "");
+      setReference(project.reference || "");
+      setNotes(project.notes || "");
+    } else {
+      resetForm();
+    }
+
+    setStep(1);
+  }, [isOpen, project]);
 
   if (!isOpen) return null;
+
+  const resetForm = () => {
+    setProjectName(emptyForm.projectName);
+    setCategory(emptyForm.category);
+    setStatus(emptyForm.status);
+    setBudget(emptyForm.budget);
+    setStartDate(emptyForm.startDate);
+    setDeadline(emptyForm.deadline);
+    setDescription(emptyForm.description);
+
+    setClientName(emptyForm.clientName);
+    setClientEmail(emptyForm.clientEmail);
+    setClientPhone(emptyForm.clientPhone);
+    setCompany(emptyForm.company);
+    setAddress(emptyForm.address);
+
+    setAmount(emptyForm.amount);
+    setPaymentMethod(emptyForm.paymentMethod);
+    setPaymentStatus(emptyForm.paymentStatus);
+    setDueDate(emptyForm.dueDate);
+    setReference(emptyForm.reference);
+    setNotes(emptyForm.notes);
+  };
 
   const nextStep = () => {
     if (step < 3) {
@@ -43,68 +128,80 @@ const [notes, setNotes] = useState("");
     }
   };
 
+  const buildPayload = () => ({
+    userId: auth.currentUser.uid,
 
-const handleCreateProject = async () => {
-   console.log("Button clicked");
-  try {
-    await addDoc(collection(db, "projects"), {
-      userId: auth.currentUser.uid,
+    projectName,
+    category,
+    status,
+    budget,
+    startDate,
+    deadline,
+    description,
 
-      projectName,
-      category,
-      status,
-      budget,
-      startDate,
-      deadline,
-      description,
+    clientName,
+    clientEmail,
+    clientPhone,
+    company,
+    address,
 
-      clientName,
-      clientEmail,
-      clientPhone,
-      company,
-      address,
+    amount,
+    paymentMethod,
+    paymentStatus,
+    dueDate,
+    reference,
+    notes,
+  });
 
-      amount,
-      paymentMethod,
-      paymentStatus,
-      dueDate,
-      reference,
-      notes,
+  const handleCreateProject = async () => {
+    try {
+      await addDoc(collection(db, "projects"), {
+        ...buildPayload(),
+        createdAt: serverTimestamp(),
+      });
 
-      createdAt: serverTimestamp(),
-    });
+      toast.success("Project created successfully!");
 
-    toast.success("Project created successfully!");
+      resetForm();
+      setStep(1);
+      onClose();
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to create project.");
+    }
+  };
 
-     setProjectName("");
-    setCategory("");
-    setStatus("Planning");
-    setBudget("");
-    setStartDate("");
-    setDeadline("");
-    setDescription("");
+  const handleUpdateProject = async () => {
+    try {
+      await updateDoc(doc(db, "projects", project.id), {
+        ...buildPayload(),
+        updatedAt: serverTimestamp(),
+      });
 
-    setClientName("");
-    setClientEmail("");
-    setClientPhone("");
-    setCompany("");
-    setAddress("");
+      toast.success("Project updated successfully!");
 
-    setAmount("");
-    setPaymentMethod("Mpesa");
-    setPaymentStatus("Pending");
-    setDueDate("");
-    setReference("");
-    setNotes("");
+      resetForm();
+      setStep(1);
+      onClose();
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to update project.");
+    }
+  };
 
+  const handleSubmit = () => {
+    if (isEditing) {
+      handleUpdateProject();
+    } else {
+      handleCreateProject();
+    }
+  };
+
+  const handleClose = () => {
+    resetForm();
     setStep(1);
-
     onClose();
-  } catch (error) {
-    console.log(error);
-    toast.error("Failed to create project.");
-  }
-};
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
@@ -113,16 +210,18 @@ const handleCreateProject = async () => {
         <div className="flex items-center justify-between border-b px-8 py-5">
           <div>
             <h2 className="text-2xl font-bold text-slate-900">
-              Create New Project
+              {isEditing ? "Edit Project" : "Create New Project"}
             </h2>
 
             <p className="text-slate-500 mt-1">
-              Complete the steps below to create a project.
+              {isEditing
+                ? "Update the details below and save your changes."
+                : "Complete the steps below to create a project."}
             </p>
           </div>
 
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="rounded-lg p-2 hover:bg-slate-100"
           >
             <X />
@@ -504,10 +603,10 @@ onChange={(e) => setNotes(e.target.value)}
           ) : (
             <button
   type="button"
-  onClick={handleCreateProject}
+  onClick={handleSubmit}
   className="rounded-xl bg-indigo-600 px-6 py-3 text-white font-semibold hover:bg-indigo-700"
 >
-  Create Project
+  {isEditing ? "Update Project" : "Create Project"}
 </button>
           )}
 

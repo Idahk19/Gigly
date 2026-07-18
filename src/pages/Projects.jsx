@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 
 import { toast } from "sonner";
+import Swal from "sweetalert2";
 
 function Projects() {
   const [projects, setProjects] = useState([]);
@@ -52,9 +53,22 @@ function Projects() {
     fetchProjects();
   }, []);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (project) => {
+    const result = await Swal.fire({
+      title: "Delete this project?",
+      text: `"${project.projectName}" will be permanently removed. This action cannot be undone.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#6366f1",
+      confirmButtonText: "Delete",
+      cancelButtonText: "Cancel",
+    });
+
+    if (!result.isConfirmed) return;
+
     try {
-      await deleteDoc(doc(db, "projects", id));
+      await deleteDoc(doc(db, "projects", project.id));
 
       toast.success("Project deleted successfully.");
 
@@ -318,7 +332,7 @@ function Projects() {
                   </button>
 
                   <button
-                    onClick={() => handleDelete(project.id)}
+                    onClick={() => handleDelete(project)}
                     className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-red-500 py-3 text-white hover:bg-red-600 transition"
                   >
                     <Trash2 size={18} />
