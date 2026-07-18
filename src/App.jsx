@@ -14,6 +14,7 @@ import Tasks from "./pages/Tasks"
 import Projects from "./pages/Projects";
 import TaskHistory from "./pages/TaskHistory";
 import Settings from "./pages/Settings";
+import PricingPage from "./pages/Pricing";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
        <Route path='/support' element={<Support/>} />
        <Route path='/faq' element={<FAQ/>} />
        <Route path='/about' element={<About/>} />
+       <Route path='/pricing' element={<PricingPage/>} />
        <Route path='/dashboard'
         element={
           <ProtectedRoute>

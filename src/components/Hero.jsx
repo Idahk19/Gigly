@@ -40,12 +40,6 @@ function Hero() {
                 Get Started
               </Link>
 
-              <Link
-                to="/about"
-                className="border border-slate-300 hover:border-indigo-600 hover:text-indigo-600 px-8 py-4 rounded-xl font-semibold transition"
-              >
-                Learn More
-              </Link>
             </div>
           </div>
 
