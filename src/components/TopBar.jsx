@@ -11,8 +11,8 @@ function TopBar() {
   const { user } = useContext(AuthContext);
 
   return (
-   <header className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-violet-600 shadow-lg">
-  <div className="px-4 sm:px-6 lg:px-10 py-4 flex items-center justify-between">
+   <header className="sticky top-0 z-40 bg-gradient-to-r from-indigo-600 via-indigo-500 to-violet-600 shadow-lg">
+  <div className="pl-20 pr-4 sm:pl-20 sm:pr-6 lg:px-10 py-4 flex items-center justify-between">
 
     {/* Left */}
     <div>
