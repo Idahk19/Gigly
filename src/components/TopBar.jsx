@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import {
   Search,
-  Bell,
   CircleUserRound,
   ChevronDown,
 } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
+import NotificationBell from "./NotificationBell";
 
 function TopBar() {
   const { user } = useContext(AuthContext);
@@ -29,11 +29,7 @@ function TopBar() {
     <div className="flex items-center gap-2 sm:gap-4">
 
       {/* Notification */}
-      <button className="relative w-10 h-10 rounded-xl bg-white/20 hover:bg-white/30 flex items-center justify-center">
-        <Bell size={20} className="text-white" />
-
-        <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-red-500"></span>
-      </button>
+      <NotificationBell />
 
       {/* Profile */}
       <button className="flex items-center gap-2 rounded-xl bg-white/20 hover:bg-white/30 px-2 sm:px-3 py-2">
