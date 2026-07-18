@@ -49,6 +49,11 @@ function Sidebar() {
       icon: ListTodo,
     },
     {
+      name: "Task History",
+      path: "/dashboard/taskhistory",
+      icon: ListTodo,
+    },
+    {
       name: "Settings",
       path: "/dashboard/settings",
       icon: Settings,

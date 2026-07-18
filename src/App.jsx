@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard"
 import ProtectedRoute from "./components/ProtectedRoute";
 import Tasks from "./pages/Tasks"
 import Projects from "./pages/Projects";
+import TaskHistory from "./pages/TaskHistory";
 
 function App() {
   return (
@@ -45,6 +46,14 @@ function App() {
         element={
           <ProtectedRoute>
             <Projects />
+          </ProtectedRoute>
+        }
+      />
+          <Route
+        path="/dashboard/taskhistory"
+        element={
+          <ProtectedRoute>
+            <TaskHistory />
           </ProtectedRoute>
         }
       />
