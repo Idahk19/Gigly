@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/SideBar";
-import TopBar from "../components/Topbar";
+import TopBar from "../components/TopBar";
 import ProjectModal from "../components/ProjectModal";
 import { Plus, Pencil, Trash2, Search } from "lucide-react";
 

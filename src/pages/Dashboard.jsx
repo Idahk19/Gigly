@@ -6,7 +6,8 @@ import { Plus, FolderKanban,
     Wallet,
     Clock3,
     CheckCircle2,
-    CircleDollarSign, } from "lucide-react";
+    CircleDollarSign,
+    ListChecks, } from "lucide-react";
 import ProjectModal from '../components/ProjectModal';
 import StatsCard from "../components/StatsCard";
 import { db, auth } from "../firebase";
@@ -21,6 +22,7 @@ import {
 function Dashboard() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [projects, setProjects] = useState([]);
+    const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
   const fetchProjects = async () => {
@@ -43,8 +45,29 @@ function Dashboard() {
     }
   };
 
+  const fetchTasks = async () => {
+    try {
+      const q = query(
+        collection(db, "tasks"),
+        where("userId", "==", auth.currentUser.uid)
+      );
+
+      const snapshot = await getDocs(q);
+
+      const taskList = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setTasks(taskList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (auth.currentUser) {
     fetchProjects();
+    fetchTasks();
   }
 }, []);
 const totalProjects = projects.length;
@@ -74,6 +97,9 @@ const unpaidRevenue = projects
     (sum, project) => sum + Number(project.amount || 0),
     0
   );
+
+const totalTasks = tasks.length;
+
   const recentProjects = [...projects]
   .sort(
     (a, b) =>
@@ -86,6 +112,38 @@ const unpaidRevenue = projects
       new Date(a.deadline) - new Date(b.deadline)
   )
   .slice(0, 4);
+
+  const toDateSafe = (value) => {
+    if (!value) return null;
+    return value.toDate instanceof Function ? value.toDate() : new Date(value);
+  };
+
+  const recentTasks = [...tasks]
+    .sort((a, b) => {
+      const dateA = toDateSafe(a.createdAt) || toDateSafe(a.dueDate) || new Date(0);
+      const dateB = toDateSafe(b.createdAt) || toDateSafe(b.dueDate) || new Date(0);
+      return dateB - dateA;
+    })
+    .slice(0, 3);
+
+  const getPriorityColor = (priority) => {
+    const colors = {
+      High: "bg-rose-100 text-rose-700 border-rose-200",
+      Medium: "bg-amber-100 text-amber-700 border-amber-200",
+      Low: "bg-emerald-100 text-emerald-700 border-emerald-200",
+    };
+    return colors[priority] || "bg-slate-100 text-slate-700 border-slate-200";
+  };
+
+  const getStatusColor = (status) => {
+    const colors = {
+      Completed: "bg-emerald-100 text-emerald-700",
+      "In Progress": "bg-amber-100 text-amber-700",
+      Pending: "bg-indigo-100 text-indigo-700",
+    };
+    return colors[status] || "bg-slate-100 text-slate-700";
+  };
+
   return (
     
     <div>
@@ -157,6 +215,13 @@ const unpaidRevenue = projects
         color="bg-rose-500"
     />
 
+    <StatsCard
+        title="Tasks"
+        value={totalTasks}
+        icon={<ListChecks className="text-white" />}
+        color="bg-cyan-600"
+    />
+
 </div>
 <section className="mt-10">
 <h2 className="text-2xl font-bold text-slate-900 mb-5">
@@ -188,6 +253,60 @@ Created: {project.createdAt?.toDate().toLocaleDateString()}
 </div>
 ))}
 </div>
+</section>
+
+{/* Recent Tasks */}
+<section className="mt-10">
+<h2 className="text-2xl font-bold text-slate-900 mb-5">
+Recent Tasks
+</h2>
+
+{recentTasks.length === 0 ? (
+  <div className="bg-white rounded-xl shadow p-8 text-center text-slate-500">
+    No tasks yet.
+  </div>
+) : (
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {recentTasks.map((task) => (
+      <div
+        key={task.id}
+        className="bg-white rounded-xl shadow p-5"
+      >
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="text-lg font-bold text-indigo-600">
+            {task.title}
+          </h3>
+
+          <span
+            className={`px-3 py-1 rounded-full text-xs font-medium border ${getPriorityColor(
+              task.priority
+            )}`}
+          >
+            {task.priority || "No Priority"}
+          </span>
+        </div>
+
+        <p className="text-md text-slate-500 mt-2">
+          Project: {task.projectName || "No Project"}
+        </p>
+
+        <div className="flex items-center justify-between mt-3">
+          <span
+            className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(
+              task.status
+            )}`}
+          >
+            {task.status || "Pending"}
+          </span>
+
+          <p className="text-sm text-slate-500">
+            Due: {toDateSafe(task.dueDate)?.toLocaleDateString() || "—"}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+)}
 </section>
 
 
