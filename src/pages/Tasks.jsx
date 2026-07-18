@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Sidebar from "../components/SideBar";
 import TopBar from "../components/TopBar";
 import TaskModal from "../components/TaskModal";import {
@@ -11,6 +11,8 @@ import TaskModal from "../components/TaskModal";import {
   TrendingUp,
   Pencil,
   Trash2,
+  Search,
+  SlidersHorizontal,
 } from "lucide-react";
 import { db, auth } from "../firebase";
 import {
@@ -31,6 +33,11 @@ function Tasks() {
   const [editingTaskId, setEditingTaskId] = useState(null);
 const [editedTitle, setEditedTitle] = useState("");
 const [editedPriority, setEditedPriority] = useState("Medium");
+
+  // search + filter state for today's tasks
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterPriority, setFilterPriority] = useState("All");
+  const [filterProject, setFilterProject] = useState("All");
 
   const today = new Date().toLocaleDateString("en-KE", {
     weekday: "long",
@@ -148,6 +155,45 @@ const handleSaveEdit = async (taskId) => {
     );
   });
 
+  // unique project names, used to populate the project filter dropdown
+  const projectOptions = useMemo(() => {
+    const names = todaysTasks
+      .map((task) => task.projectName)
+      .filter(Boolean);
+    return ["All", ...Array.from(new Set(names))];
+  }, [todaysTasks]);
+
+  // today's tasks after search + filters are applied
+  const filteredTodaysTasks = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+
+    return todaysTasks.filter((task) => {
+      const matchesSearch =
+        q === "" ||
+        task.title?.toLowerCase().includes(q) ||
+        task.projectName?.toLowerCase().includes(q);
+
+      const matchesPriority =
+        filterPriority === "All" || task.priority === filterPriority;
+
+      const matchesProject =
+        filterProject === "All" || task.projectName === filterProject;
+
+      return matchesSearch && matchesPriority && matchesProject;
+    });
+  }, [todaysTasks, searchQuery, filterPriority, filterProject]);
+
+  const hasActiveFilters =
+    searchQuery.trim() !== "" ||
+    filterPriority !== "All" ||
+    filterProject !== "All";
+
+  const clearFilters = () => {
+    setSearchQuery("");
+    setFilterPriority("All");
+    setFilterProject("All");
+  };
+
   const completedToday = tasks.filter((task) => {
     if (task.status !== "Completed") return false;
     if (!task.completedAt) return false;
@@ -179,30 +225,6 @@ const handleSaveEdit = async (taskId) => {
     
     return dueDate < today1; 
   });
-
-  const history = tasks.reduce((groups, task) => {
-    if (!task.dueDate) return groups; // skips tasks 
-
-    const date =
-      task.dueDate.toDate instanceof Function
-        ? task.dueDate.toDate()
-        : new Date(task.dueDate);
-
-    const formattedDate = date.toLocaleDateString("en-KE", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }); // Friday, 17 July 2026  has that instead of Fri Jul 17 2026
-
-    if (!groups[formattedDate]) {  // if not created
-      groups[formattedDate] = []; // create empty array
-    }
-
-    groups[formattedDate].push(task); // add task
-
-    return groups;
-  }, {});
 
   const getPriorityColor = (priority) => {
     const colors = {
@@ -321,13 +343,69 @@ const handleSaveEdit = async (taskId) => {
             </div>
           </div>
 
+          {/* Search + Filters for Today's Tasks */}
+          <div className="bg-white rounded-2xl shadow-sm border border-indigo-100/50 mt-6 p-5">
+            <div className="flex flex-col lg:flex-row gap-3 lg:items-center">
+              <div className="relative flex-1">
+                <Search
+                  size={18}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search by task or project name..."
+                  className="w-full border border-slate-200 rounded-xl pl-11 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400"
+                />
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                <div className="flex items-center gap-2">
+                  <SlidersHorizontal size={16} className="text-slate-400" />
+                  <select
+                    value={filterPriority}
+                    onChange={(e) => setFilterPriority(e.target.value)}
+                    className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400"
+                  >
+                    <option value="All">All Priorities</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </div>
+
+                <select
+                  value={filterProject}
+                  onChange={(e) => setFilterProject(e.target.value)}
+                  className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400"
+                >
+                  {projectOptions.map((project) => (
+                    <option key={project} value={project}>
+                      {project === "All" ? "All Projects" : project}
+                    </option>
+                  ))}
+                </select>
+
+                {hasActiveFilters && (
+                  <button
+                    onClick={clearFilters}
+                    className="text-sm font-medium text-indigo-600 hover:text-indigo-700 px-3 py-2.5"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+
           {/* Today's Tasks */}
           <section className="mt-10">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-1 h-8 bg-gradient-to-b from-indigo-600 to-purple-600 rounded-full"></div>
               <h2 className="text-2xl font-bold text-slate-900">Today's Tasks</h2>
               <span className="bg-indigo-100 text-indigo-700 text-sm font-medium px-3 py-1 rounded-full">
-                {todaysTasks.length}
+                {filteredTodaysTasks.length}
               </span>
             </div>
 
@@ -337,9 +415,15 @@ const handleSaveEdit = async (taskId) => {
                 <p className="text-slate-500 text-lg">All caught up! </p>
                 <p className="text-slate-400 text-sm mt-1">No pending tasks for today</p>
               </div>
+            ) : filteredTodaysTasks.length === 0 ? (
+              <div className="bg-white rounded-2xl shadow-sm border border-indigo-100/50 p-12 text-center">
+                <Search size={48} className="text-indigo-200 mx-auto mb-4" />
+                <p className="text-slate-500 text-lg">No tasks match your search</p>
+                <p className="text-slate-400 text-sm mt-1">Try adjusting your search or filters</p>
+              </div>
             ) : (
               <div className="grid gap-4">
-               {todaysTasks.map((task) => (
+               {filteredTodaysTasks.map((task) => (
   <div
     key={task.id}
     className="bg-white rounded-2xl shadow-sm border border-indigo-100 p-5 hover:shadow-lg transition"
@@ -480,7 +564,7 @@ const handleSaveEdit = async (taskId) => {
           </section>
 
           {/* Carry Over Tasks */}
-          <section className="mt-10">
+          <section className="mt-10 pb-10">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-1 h-8 bg-gradient-to-b from-rose-500 to-rose-600 rounded-full"></div>
               <h2 className="text-2xl font-bold text-slate-900">Carry Over Tasks</h2>
@@ -514,7 +598,7 @@ const handleSaveEdit = async (taskId) => {
                       key={task.id}
                       className="bg-white rounded-2xl shadow-sm border-l-4 border-rose-500 p-5 hover:shadow-lg transition-all duration-300"
                     >
-                      <div className="flex justify-between items-start">
+                      <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
                         <div>
                           <h3 className="font-semibold text-slate-900">
                             {task.title}
@@ -523,76 +607,29 @@ const handleSaveEdit = async (taskId) => {
                             {task.projectName || "No Project"}
                           </p>
                         </div>
-                        <div className="bg-rose-50 px-4 py-2 rounded-xl border border-rose-200">
-                          <p className="text-rose-700 font-medium text-sm flex items-center gap-1">
-                            <AlertCircle size={16} />
-                            {daysOverdue === 1
-                              ? "1 day overdue"
-                              : `${daysOverdue} days overdue`}
-                          </p>
+
+                        <div className="flex items-center gap-3">
+                          <div className="bg-rose-50 px-4 py-2 rounded-xl border border-rose-200">
+                            <p className="text-rose-700 font-medium text-sm flex items-center gap-1">
+                              <AlertCircle size={16} />
+                              {daysOverdue === 1
+                                ? "1 day overdue"
+                                : `${daysOverdue} days overdue`}
+                            </p>
+                          </div>
+
+                          <button
+                            onClick={() => handleMarkComplete(task.id)}
+                            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-xl transition text-sm font-medium"
+                          >
+                            <CheckCircle2 size={16} />
+                            Mark as Complete
+                          </button>
                         </div>
                       </div>
                     </div>
                   );
                 })}
-              </div>
-            )}
-          </section>
-
-          {/* Task History */}
-          <section className="mt-10 pb-10">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-1 h-8 bg-gradient-to-b from-indigo-600 to-purple-600 rounded-full"></div>
-              <h2 className="text-2xl font-bold text-slate-900">Task History</h2>
-            </div>
-
-            {Object.keys(history).length === 0 ? (
-              <div className="bg-white rounded-2xl shadow-sm border border-indigo-100/50 p-12 text-center">
-                <Clock size={48} className="text-indigo-200 mx-auto mb-4" />
-                <p className="text-slate-500">No task history yet</p>
-                <p className="text-slate-400 text-sm mt-1">Complete tasks to see them here</p>
-              </div>
-            ) : (
-              <div className="space-y-6">
-                {Object.entries(history)
-                  .sort(([dateA], [dateB]) => new Date(dateB) - new Date(dateA))
-                  .map(([date, tasks]) => (
-                    <div
-                      key={date}
-                      className="bg-white rounded-2xl shadow-sm border border-indigo-100/50 overflow-hidden hover:shadow-lg transition-all duration-300"
-                    >
-                      <div className="bg-gradient-to-r from-indigo-50 to-purple-50 px-6 py-4 border-b border-indigo-100">
-                        <h3 className="text-lg font-bold text-indigo-700 flex items-center gap-2">
-                          <Calendar size={20} />
-                          {date}
-                        </h3>
-                      </div>
-
-                      <div className="divide-y divide-slate-100">
-                        {tasks.map((task) => (
-                          <div
-                            key={task.id}
-                            className="px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 hover:bg-slate-50/50 transition-colors"
-                          >
-                            <div>
-                              <h4 className="font-semibold text-slate-900">
-                                {task.title}
-                              </h4>
-                              <p className="text-sm text-slate-500">
-                                {task.projectName || "No Project"}
-                              </p>
-                            </div>
-
-                            <span
-                              className={`px-4 py-1.5 rounded-full text-sm font-medium ${getStatusColor(task.status)}`}
-                            >
-                              {task.status || "Pending"}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
               </div>
             )}
           </section>

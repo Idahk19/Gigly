@@ -28,20 +28,6 @@ function TopBar() {
     {/* Right */}
     <div className="flex items-center gap-2 sm:gap-4">
 
-      {/* Search - desktop only */}
-      <div className="relative hidden lg:block">
-        <Search
-          size={18}
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-300"
-        />
-
-        <input
-          type="text"
-          placeholder="Search..."
-          className="w-72 rounded-xl bg-white/20 border border-white/20 py-3 pl-11 pr-4 text-white placeholder:text-indigo-200 outline-none focus:border-white focus:bg-white/30"
-        />
-      </div>
-
       {/* Notification */}
       <button className="relative w-10 h-10 rounded-xl bg-white/20 hover:bg-white/30 flex items-center justify-center">
         <Bell size={20} className="text-white" />
