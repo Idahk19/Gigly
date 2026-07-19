@@ -20,6 +20,7 @@ import Swal from "sweetalert2";
 
 function Projects() {
   const [projects, setProjects] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
 
@@ -49,9 +50,48 @@ function Projects() {
     }
   };
 
+  const fetchTasks = async () => {
+    if (!auth.currentUser) return;
+
+    try {
+      const q = query(
+        collection(db, "tasks"),
+        where("userId", "==", auth.currentUser.uid)
+      );
+
+      const snapshot = await getDocs(q);
+
+      const fetchedTasks = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setTasks(fetchedTasks);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchProjects();
+    fetchTasks();
   }, []);
+
+  // progress = tasks completed / total tasks linked to this project (matched by project id)
+  const getProjectProgress = (project) => {
+    const projectTasks = tasks.filter(
+      (task) => task.projectId === project.id
+    );
+
+    const total = projectTasks.length;
+    const completed = projectTasks.filter(
+      (task) => task.status === "Completed"
+    ).length;
+
+    const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
+
+    return { total, completed, percent };
+  };
 
   const handleDelete = async (project) => {
     const result = await Swal.fire({
@@ -225,6 +265,36 @@ function Projects() {
                     {project.status}
                   </span>
                 </div>
+
+                {/* Project Progress */}
+                {(() => {
+                  const { total, completed, percent } = getProjectProgress(project);
+
+                  return (
+                    <div className="mt-5">
+                      <div className="flex justify-between items-center mb-1.5">
+                        <span className="text-sm font-medium text-slate-600">
+                          Project Progress
+                        </span>
+                        <span className="text-sm font-semibold text-indigo-600">
+                          {total === 0
+                            ? "No tasks yet"
+                            : `${completed} / ${total} tasks \u00b7 ${percent}%`}
+                        </span>
+                      </div>
+
+                      <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                        <div
+                          className="bg-indigo-600 h-2.5 rounded-full transition-all duration-500"
+                          style={{
+                            width: `${percent}%`,
+                            minWidth: percent > 0 ? "8px" : "0px",
+                          }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })()}
 
                 {/* Project Details */}
                 <div className="mt-6 border-t pt-5 space-y-2">
