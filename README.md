@@ -76,8 +76,7 @@ src/
 │   ├── dashboard/
 │   ├── projects/
 │   ├── tasks/
-│   ├── clients/
-│   └── payments/
+│   
 │
 ├── context/
 │
@@ -86,16 +85,9 @@ src/
 │   ├── Dashboard.jsx
 │   ├── Projects.jsx
 │   ├── Tasks.jsx
-│   ├── Clients.jsx
-│   ├── Payments.jsx
 │   ├── About.jsx
 │   ├── Login.jsx
-│   └── NotFound.jsx
-│
-├── hooks/
-├── services/
-├── utils/
-├── data/
+│  
 ├── App.jsx
 └── main.jsx
 ```
