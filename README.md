@@ -113,6 +113,8 @@ npm run dev
 ## Future Enhancements
 
 - Mobile application
+- Email notifications for deadlines
+- Team collaboration
 
 ### license
 
