@@ -119,6 +119,9 @@ npm run dev
 MIT license
 
 ### Live URL
+```
+https://gigly-xi.vercel.app/
+```
 
 ### Author
 
